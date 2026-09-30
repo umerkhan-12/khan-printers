@@ -9,7 +9,7 @@ export function OurWork() {
     <section id="work" aria-labelledby="work-title" className="section-y">
       <div className="container-page">
         <Reveal>
-          <SectionHeading index="01" eyebrow="Our Work" title={portfolioHasSamples ? "What we print." : "Real projects. Real printing."} id="work-title">
+          <SectionHeading index="02" eyebrow="Our Work" title={portfolioHasSamples ? "What we print." : "Real projects. Real printing."} id="work-title">
             {portfolioHasSamples ? (
               <p>
                 Stickers, invitations, packaging, brochures and large-format prints.{" "}

@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { SampleBadge } from "@/components/ui/Photo";
+import { CropMarks, RegistrationMark } from "@/components/ui/PrintMarks";
 import { media } from "@/content/media";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
@@ -90,7 +91,7 @@ function HeroFigure() {
   return (
     <figure className="relative mx-auto w-full max-w-xl lg:max-w-none">
       <div className="relative">
-        <CropMarks />
+        <CropMarks className="hero-fade" style={delay(900)} />
         <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-ink-soft lg:aspect-auto lg:h-[clamp(24rem,58svh,40rem)]">
           <Image
             src={heroImage.src}
@@ -122,32 +123,6 @@ function Line({ d, children }: { d: number; children: ReactNode }) {
     <span className="hero-line">
       <span style={delay(d)}>{children}</span>
     </span>
-  );
-}
-
-/** Printer's crop marks around the photo — the brand's signature detail. */
-function CropMarks() {
-  const mark = "hero-fade pointer-events-none absolute bg-on-ink-muted/60";
-  return (
-    <div aria-hidden="true" className="hidden sm:block" style={delay(900)}>
-      <span className={`${mark} -top-px -left-7 h-px w-4`} />
-      <span className={`${mark} -top-7 -left-px h-4 w-px`} />
-      <span className={`${mark} -top-px -right-7 h-px w-4`} />
-      <span className={`${mark} -top-7 -right-px h-4 w-px`} />
-      <span className={`${mark} -bottom-px -left-7 h-px w-4`} />
-      <span className={`${mark} -bottom-7 -left-px h-4 w-px`} />
-      <span className={`${mark} -right-7 -bottom-px h-px w-4`} />
-      <span className={`${mark} -right-px -bottom-7 h-4 w-px`} />
-    </div>
-  );
-}
-
-function RegistrationMark({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className={className}>
-      <circle cx="12" cy="12" r="6" />
-      <path d="M12 1v22M1 12h22" />
-    </svg>
   );
 }
 

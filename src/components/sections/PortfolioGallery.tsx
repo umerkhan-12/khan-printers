@@ -24,6 +24,10 @@ const tileLayout: Record<PortfolioItem["layout"], { className: string; sizes: st
     className: "col-span-2 aspect-[16/9] lg:col-span-8 lg:row-span-3 lg:aspect-auto",
     sizes: "(min-width: 1024px) 66vw, 100vw",
   },
+  full: {
+    className: "col-span-2 aspect-[3/2] lg:col-span-12 lg:row-span-5 lg:aspect-auto",
+    sizes: "100vw",
+  },
   half: {
     className: "aspect-[4/5] sm:aspect-[4/3] lg:col-span-6 lg:row-span-3 lg:aspect-auto",
     sizes: "50vw",

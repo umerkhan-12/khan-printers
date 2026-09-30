@@ -32,9 +32,10 @@ export const site = {
   fulfilment: "Pickup or delivery",
 } as const;
 
+/** Section links. Absolute ("/#…") so they work from every page. */
 export const navLinks = [
-  { href: "#work", label: "Our Work" },
-  { href: "#services", label: "Services" },
-  { href: "#why", label: "Why Us" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#work", label: "Our Work" },
+  { href: "/#why", label: "Why Us" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/#contact", label: "Contact" },
 ] as const;

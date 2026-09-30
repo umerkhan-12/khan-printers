@@ -24,8 +24,9 @@ const emptyFields: QuoteFields = { name: "", phone: "", service: "", quantity: "
 
 type Status = { state: "idle" } | { state: "sent"; waUrl: string; hasFile: boolean; emailed: boolean | null };
 
-export function QuoteForm({ emailEnabled }: { emailEnabled: boolean }) {
-  const [fields, setFields] = useState<QuoteFields>(emptyFields);
+export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled: boolean; initialService?: string }) {
+  const initialFields = { ...emptyFields, service: initialService };
+  const [fields, setFields] = useState<QuoteFields>(initialFields);
   const [errors, setErrors] = useState<QuoteErrors>({});
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const fileRef = useRef<HTMLInputElement>(null);
@@ -112,7 +113,7 @@ export function QuoteForm({ emailEnabled }: { emailEnabled: boolean }) {
         <button
           type="button"
           onClick={() => {
-            setFields(emptyFields);
+            setFields(initialFields);
             setStatus({ state: "idle" });
           }}
           className="mx-auto mt-4 block min-h-11 text-sm text-muted underline underline-offset-4 hover:text-ink"

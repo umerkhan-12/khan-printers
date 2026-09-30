@@ -9,12 +9,12 @@ const steps = [
   { title: "Pickup or delivery", text: "Collect your order or have it delivered to you." },
 ];
 
-export function ProcessSteps() {
+export function ProcessSteps({ index = "04" }: { index?: string }) {
   return (
     <section id="process" aria-labelledby="process-title" className="section-y bg-paper-deep">
       <div className="container-page">
         <Reveal>
-          <SectionHeading index="04" eyebrow="How it works" title="From idea to print in five steps." id="process-title" />
+          <SectionHeading index={index} eyebrow="How it works" title="From idea to print in five steps." id="process-title" />
         </Reveal>
 
         <ol className="mt-12 grid gap-0 lg:mt-16 lg:grid-cols-5 lg:gap-8">

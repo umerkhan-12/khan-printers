@@ -18,7 +18,9 @@ npm run lint
 | What | File |
 |---|---|
 | Business facts (phone, email, hours, address) | `src/content/site.ts` |
-| Services list and copy | `src/content/services.ts` |
+| Products (services), copy and "perfect for" tags | `src/content/services.ts` |
+| Product pages (`/services/<slug>`) | `src/app/services/[slug]/page.tsx` |
+| FAQ questions and answers | `src/content/faq.ts` |
 | Images and alt text | `src/content/media.ts` |
 | Gallery order and layout | `src/content/portfolio.ts` |
 | WhatsApp message wording | `src/lib/whatsapp.ts` |
@@ -40,11 +42,13 @@ Next.js generates AVIF/WebP and responsive sizes automatically.
 
 ## Ad landing links
 
-Add `?service=<slug>` to preselect a service in the quote form, e.g.
+Each product has its own page, which is the best landing page for a product ad. Its quote form has the product already selected:
 
 ```
-https://<domain>/?service=stickers-labels#quote
+https://<domain>/services/stickers-labels
 ```
+
+On the home page, `?service=<slug>` preselects a product in the quote form instead, e.g. `https://<domain>/?service=stickers-labels#quote`.
 
 Slugs: `business-cards`, `stickers-labels`, `wedding-invitations`, `brochures-flyers`, `books-registers`, `branded-bags`, `banners`, `custom-printing`.
 

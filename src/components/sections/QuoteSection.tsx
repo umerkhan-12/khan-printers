@@ -8,7 +8,15 @@ import { whatsappUrl } from "@/lib/whatsapp";
 
 import { QuoteForm, ServiceFromUrl } from "./QuoteForm";
 
-export function QuoteSection({ emailEnabled }: { emailEnabled: boolean }) {
+type Props = {
+  emailEnabled: boolean;
+  index: string;
+  /** Preselects the service (used on product pages). */
+  initialService?: string;
+  title?: string;
+};
+
+export function QuoteSection({ emailEnabled, index, initialService, title = "Tell us what you need." }: Props) {
   const details = [
     { Icon: PhoneIcon, label: "Phone", value: site.phone.display, href: `tel:${site.phone.tel}` },
     { Icon: MailIcon, label: "Email", value: site.email, href: `mailto:${site.email}` },
@@ -22,7 +30,7 @@ export function QuoteSection({ emailEnabled }: { emailEnabled: boolean }) {
       {/* Mobile order: intro → form → contact details. Desktop: intro + details left, form right. */}
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-12">
         <div className="min-w-0 lg:col-span-5">
-          <SectionHeading index="05" eyebrow="Get a quote" title="Tell us what you need." id="quote-title">
+          <SectionHeading index={index} eyebrow="Get a quote" title={title} id="quote-title">
             <p>Send your details and we’ll reply on WhatsApp with a quote. Prefer to chat? Message us directly.</p>
           </SectionHeading>
 
@@ -34,7 +42,7 @@ export function QuoteSection({ emailEnabled }: { emailEnabled: boolean }) {
 
         <div className="min-w-0 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
           <div className="rounded-img bg-white p-6 shadow-[0_1px_0_rgb(17_17_17/0.04),0_24px_48px_-24px_rgb(17_17_17/0.18)] sm:p-10">
-            <QuoteForm emailEnabled={emailEnabled} />
+            <QuoteForm emailEnabled={emailEnabled} initialService={initialService} />
             <Suspense fallback={null}>
               <ServiceFromUrl />
             </Suspense>

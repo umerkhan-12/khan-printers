@@ -1,16 +1,33 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { buttonClasses } from "@/components/ui/Button";
-import { CloseIcon, InstagramIcon, MenuIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
+import {
+  ArrowUpRightIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  InstagramIcon,
+  MenuIcon,
+  PhoneIcon,
+  WhatsAppIcon,
+} from "@/components/ui/icons";
+import { serviceHref, services } from "@/content/services";
 import { navLinks, site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
 import { Wordmark } from "./Wordmark";
 
+const idOf = (href: string) => href.split("#")[1] ?? "";
+
+// Non-nav sections are observed too, so the highlight clears when they are in view.
+const sectionIds = ["top", "products", ...navLinks.map((l) => idOf(l.href)), "process"];
+
 /** Highlights the nav link for the section currently in view. */
-function useActiveSection(ids: string[]) {
+function useActiveSection(ids: string[], pathname: string) {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
@@ -25,66 +42,102 @@ function useActiveSection(ids: string[]) {
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, [ids]);
+  }, [ids, pathname]);
 
   return active;
 }
 
-// Non-nav sections are observed too, so the highlight clears when they are in view.
-const sectionIds = ["top", ...navLinks.map((l) => l.href.slice(1)), "process"];
-
 export function Navbar() {
-  const active = useActiveSection(sectionIds);
+  const pathname = usePathname();
+  const active = useActiveSection(sectionIds, pathname);
   const menuRef = useRef<HTMLDialogElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  // The header is ink-toned while it sits over the dark hero, paper-toned after.
-  const [overHero, setOverHero] = useState(true);
+  // Home and product pages open on a dark hero; start dark there to avoid a flash.
+  const [overHero, setOverHero] = useState(pathname === "/" || pathname.startsWith("/services/"));
+  const [productsOpen, setProductsOpen] = useState(false);
 
+  // Ink-toned while over a dark hero (home), paper-toned elsewhere.
   useEffect(() => {
-    const hero = document.getElementById("top");
     const onScroll = () => {
+      const hero = document.getElementById("top");
       setScrolled(window.scrollY > 8);
       setOverHero(!!hero && hero.getBoundingClientRect().bottom > 72);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
+
+  // Close the products panel on route change, Escape, or outside click.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setProductsOpen(false);
+  }
+  useEffect(() => {
+    if (!productsOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setProductsOpen(false);
+    const onClick = (e: MouseEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) setProductsOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [productsOpen]);
 
   const openMenu = () => menuRef.current?.showModal();
   const closeMenu = () => menuRef.current?.close();
-  const dark = overHero;
+  const dark = overHero && !productsOpen;
+
+  const linkClass = (isActive: boolean) =>
+    `relative py-2 text-[0.9375rem] transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:transition-transform after:duration-300 ${
+      dark ? "after:bg-gold hover:text-on-ink" : "after:bg-gold-deep hover:text-ink"
+    } ${
+      isActive
+        ? `${dark ? "text-on-ink" : "text-ink"} after:scale-x-100`
+        : `${dark ? "text-on-ink-muted" : "text-muted"} after:scale-x-0 hover:after:scale-x-100`
+    }`;
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-40 border-b transition-[background-color,border-color,color] duration-500 ${
         dark ? "on-ink bg-ink text-on-ink" : "bg-paper text-ink"
-      } ${scrolled ? (dark ? "border-line-on-ink" : "border-line") : "border-transparent"}`}
+      } ${scrolled || productsOpen ? (dark ? "border-line-on-ink" : "border-line") : "border-transparent"}`}
     >
       <nav aria-label="Main" className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
         <Wordmark tone={dark ? "paper" : "ink"} />
 
         <ul className="hidden items-center gap-9 lg:flex">
-          {navLinks.map((link) => {
-            const isActive = active === link.href.slice(1);
-            return (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  aria-current={isActive ? "true" : undefined}
-                  className={`relative py-2 text-[0.9375rem] transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:transition-transform after:duration-300 ${
-                    dark ? "after:bg-gold hover:text-on-ink" : "after:bg-gold-deep hover:text-ink"
-                  } ${
-                    isActive
-                      ? `${dark ? "text-on-ink" : "text-ink"} after:scale-x-100`
-                      : `${dark ? "text-on-ink-muted" : "text-muted"} after:scale-x-0 hover:after:scale-x-100`
-                  }`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          })}
+          <li>
+            <button
+              type="button"
+              aria-expanded={productsOpen}
+              aria-controls="products-panel"
+              onClick={() => setProductsOpen((o) => !o)}
+              className={`${linkClass(productsOpen || active === "products")} inline-flex items-center gap-1.5`}
+            >
+              Products
+              <ChevronRightIcon
+                className={`size-3.5 transition-transform duration-300 ${productsOpen ? "-rotate-90" : "rotate-90"}`}
+              />
+            </button>
+          </li>
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                aria-current={active === idOf(link.href) ? "true" : undefined}
+                className={linkClass(active === idOf(link.href))}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
 
         <div className="ml-auto hidden items-center gap-3 md:flex">
@@ -113,8 +166,76 @@ export function Navbar() {
         </button>
       </nav>
 
+      <ProductsPanel open={productsOpen} onNavigate={() => setProductsOpen(false)} />
       <MobileMenu dialogRef={menuRef} onClose={closeMenu} />
     </header>
+  );
+}
+
+/** Desktop mega menu: every product with a thumbnail, plus a help card. */
+function ProductsPanel({ open, onNavigate }: { open: boolean; onNavigate: () => void }) {
+  return (
+    <div
+      id="products-panel"
+      inert={!open}
+      className={`absolute inset-x-0 top-full hidden origin-top border-b border-line bg-paper text-ink shadow-[0_24px_48px_-24px_rgb(17_17_17/0.25)] transition-[opacity,transform] duration-300 ease-(--ease-soft) lg:block ${
+        open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+      }`}
+    >
+      <div className="container-page grid grid-cols-12 gap-10 py-10">
+        <ul className="col-span-9 grid grid-cols-2 gap-x-8 gap-y-3 xl:grid-cols-4 xl:gap-y-7">
+          {services.map((s, i) => (
+            <li key={s.slug}>
+              <Link
+                href={serviceHref(s.slug)}
+                onClick={onNavigate}
+                className="group flex items-center gap-4 xl:flex-col xl:items-start xl:gap-3"
+              >
+                <span className="relative block h-16 w-20 shrink-0 overflow-hidden rounded-img bg-paper-deep xl:aspect-[4/3] xl:h-auto xl:w-full">
+                  {s.image ? (
+                    <Image
+                      src={s.image.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1280px) 220px, 80px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <span className="absolute inset-0 flex items-center justify-center font-serif text-3xl text-ink/15 italic">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  )}
+                </span>
+                <span>
+                  <span className="block font-serif text-xl leading-tight transition-colors group-hover:text-gold-deep">
+                    {s.short}
+                  </span>
+                  <span className="mt-0.5 line-clamp-1 block text-sm text-muted">{s.perfectFor.slice(0, 2).join(" · ")}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="on-ink col-span-3 flex flex-col justify-between rounded-img bg-ink p-7 text-on-ink">
+          <div>
+            <p className="label text-gold">Not sure?</p>
+            <p className="mt-4 font-serif text-[1.75rem] leading-tight">
+              Tell us what you need — we’ll suggest the best way to print it.
+            </p>
+          </div>
+          <a
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClasses("gold", "md", "mt-8 w-full")}
+          >
+            <WhatsAppIcon className="size-[1.125rem]" />
+            Ask on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -148,31 +269,46 @@ function MobileMenu({
         </button>
       </div>
 
-      <ul className="container-page mt-6 flex-1">
-        {navLinks.map((link, i) => (
-          <li key={link.href} className="border-b border-line">
-            <a href={link.href} className="flex items-baseline justify-between py-5 font-serif text-[2.5rem] leading-none">
-              {link.label}
-              <span className="label text-gold-deep">0{i + 1}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="container-page flex-1 overflow-y-auto pb-6">
+        <p className="label mt-4 text-gold-deep">Products</p>
+        <ul className="mt-3 grid grid-cols-2 gap-x-4 border-b border-line pb-5">
+          {services.map((s) => (
+            <li key={s.slug}>
+              <Link href={serviceHref(s.slug)} className="flex min-h-11 items-center justify-between gap-2 py-1 text-[0.9375rem]">
+                {s.short}
+                <ArrowUpRightIcon className="size-3.5 shrink-0 text-muted" />
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-      <div className="container-page shrink-0 space-y-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <a href="#quote" className={buttonClasses("primary", "lg", "w-full")}>
-          Get a Quote
-        </a>
-        <a
-          href={whatsappUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={buttonClasses("whatsapp", "lg", "w-full")}
-        >
-          <WhatsAppIcon />
-          Chat on WhatsApp
-        </a>
-        <div className="flex items-center justify-center gap-6 pt-3 text-sm text-muted">
+        <ul>
+          {navLinks.map((link) => (
+            <li key={link.href} className="border-b border-line">
+              <a href={link.href} className="flex items-center py-4 font-serif text-[2.25rem] leading-none">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="container-page shrink-0 space-y-3 border-t border-line pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+        <div className="grid grid-cols-2 gap-3">
+          <a href="#quote" className={buttonClasses("primary", "md", "w-full")}>
+            Get a Quote
+          </a>
+          <a
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClasses("whatsapp", "md", "w-full")}
+          >
+            <WhatsAppIcon className="size-[1.125rem]" />
+            WhatsApp
+          </a>
+        </div>
+        <div className="flex items-center justify-center gap-6 text-sm text-muted">
           <a href={`tel:${site.phone.tel}`} className="inline-flex min-h-11 items-center gap-2 hover:text-ink">
             <PhoneIcon className="size-4" />
             {site.phone.display}

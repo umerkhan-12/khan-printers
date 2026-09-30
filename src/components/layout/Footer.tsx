@@ -5,10 +5,10 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { Wordmark } from "./Wordmark";
 
 const footerNav = [
-  { href: "#services", label: "Services" },
-  { href: "#work", label: "Our Work" },
-  { href: "#quote", label: "Get a Quote" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#products", label: "Products" },
+  { href: "/#work", label: "Our Work" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/#quote", label: "Get a Quote" },
 ];
 
 export function Footer() {
