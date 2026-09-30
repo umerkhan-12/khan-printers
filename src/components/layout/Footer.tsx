@@ -2,7 +2,7 @@ import { InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/u
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
-import { Wordmark } from "./Wordmark";
+import { LogoBadge } from "./Wordmark";
 
 const footerNav = [
   { href: "/#products", label: "Products" },
@@ -23,8 +23,13 @@ export function Footer() {
     <footer id="site-footer" className="on-ink bg-surface-inverse text-text-inverse">
       <div className="container-page grid gap-12 py-16 md:grid-cols-12 lg:py-20">
         <div className="md:col-span-5">
-          <Wordmark tone="paper" />
-          <p className="mt-5 max-w-xs text-text-inverse-muted">{site.tagline}</p>
+          <div className="flex items-center gap-4">
+            <LogoBadge className="size-20" sizes="80px" />
+            <p className="font-serif text-[2rem] leading-none text-text-inverse">
+              Khan <span className="label font-sans !text-[0.75rem] !tracking-[0.28em] text-accent">Printers</span>
+            </p>
+          </div>
+          <p className="mt-6 max-w-xs text-text-inverse-muted">{site.tagline}</p>
           <p className="mt-2 text-sm text-text-inverse-muted">
             {site.location.city}, {site.location.country}
           </p>

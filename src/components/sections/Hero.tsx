@@ -6,12 +6,17 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { SampleBadge } from "@/components/ui/Photo";
 import { CropMarks, RegistrationMark } from "@/components/ui/PrintMarks";
+import { RotatingWord } from "@/components/ui/RotatingWord";
+import { LogoBadge } from "@/components/layout/Wordmark";
 import { media } from "@/content/media";
 import { serviceHref, services } from "@/content/services";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
 const heroImage = media.weddingSuite;
+
+/** Cycles in the headline. The first word is what search engines and screen readers get. */
+const headlineWords = ["brand.", "big day.", "shop.", "event."];
 
 /**
  * Full-screen "ink" hero. Entrance motion is pure CSS (see .hero-* in
@@ -46,7 +51,9 @@ export function Hero() {
                 printing, <em className="text-accent">made</em>
               </Line>
               <Line d={440}>
-                <em className="text-accent">for your brand.</em>
+                <em className="text-accent">
+                  for your <RotatingWord words={headlineWords} />
+                </em>
               </Line>
             </h1>
 
@@ -105,7 +112,12 @@ function HeroFigure() {
           />
           {heroImage.sample && <SampleBadge />}
         </div>
-        <StudioSeal className="hero-fade absolute -bottom-10 -left-10 hidden size-32 lg:block" style={delay(1100)} />
+        <div
+          className="hero-fade absolute -bottom-12 -left-8 hidden rounded-full shadow-[0_12px_32px_-8px_rgb(0_0_0/0.5)] ring-4 ring-surface-inverse lg:block"
+          style={delay(1100)}
+        >
+          <LogoBadge className="size-36" sizes="144px" />
+        </div>
       </div>
 
       <figcaption
@@ -124,28 +136,6 @@ function Line({ d, children }: { d: number; children: ReactNode }) {
     <span className="hero-line">
       <span style={delay(d)}>{children}</span>
     </span>
-  );
-}
-
-/** Static circular seal (no looping motion, per the motion rules). Decorative only. */
-function StudioSeal({ className = "", style }: { className?: string; style?: CSSProperties }) {
-  return (
-    <div aria-hidden="true" className={className} style={style}>
-      <div className="relative size-full rounded-full bg-surface-inverse">
-        <svg viewBox="0 0 120 120" className="absolute inset-0 size-full text-accent">
-          <defs>
-            <path id="seal-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
-          </defs>
-          {/* textLength = circumference (2π·46), so the phrase closes the circle exactly. */}
-          <text fill="currentColor" fontSize="9" style={{ textTransform: "uppercase" }}>
-            <textPath href="#seal-circle" textLength="289" lengthAdjust="spacing">
-              {"Khan Printers ✦ Premium Printing ✦ Karachi ✦ "}
-            </textPath>
-          </text>
-        </svg>
-        <RegistrationMark className="absolute inset-0 m-auto size-7 text-text-inverse" />
-      </div>
-    </div>
   );
 }
 

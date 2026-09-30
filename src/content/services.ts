@@ -11,15 +11,8 @@ export type Service = {
   image?: Media;
 };
 
-/** Confirmed services only. Order = display order. */
+/** Confirmed services only (client list, Sep 2026). Order = display order. */
 export const services: Service[] = [
-  {
-    slug: "business-cards",
-    title: "Business / Visiting Cards",
-    short: "Business Cards",
-    description: "Visiting cards that feel as professional as your business — in the finish and quantity you need.",
-    perfectFor: ["Business owners", "Sales teams", "Freelancers", "Shops & showrooms"],
-  },
   {
     slug: "stickers-labels",
     title: "Stickers & Labels",
@@ -27,6 +20,13 @@ export const services: Service[] = [
     description: "Product labels, logo stickers, sheets and rolls for packaging, jars, bottles and more.",
     perfectFor: ["Food & home brands", "Online stores", "Cafés & bakeries", "Product packaging"],
     image: media.stickersLabels,
+  },
+  {
+    slug: "business-cards",
+    title: "Business / Visiting Cards",
+    short: "Business Cards",
+    description: "Visiting cards that feel as professional as your business — in the finish and quantity you need.",
+    perfectFor: ["Business owners", "Sales teams", "Freelancers", "Shops & showrooms"],
   },
   {
     slug: "wedding-invitations",
@@ -66,13 +66,6 @@ export const services: Service[] = [
     description: "Roll-up banners, shop boards and large pana flex prints that are seen from a distance.",
     perfectFor: ["Shop fronts", "Events & exhibitions", "Promotions", "Real estate"],
     image: media.rollupBanners,
-  },
-  {
-    slug: "custom-printing",
-    title: "Custom Printing",
-    short: "Custom Printing",
-    description: "Have something else in mind? Tell us what you need and we’ll tell you how we can print it.",
-    perfectFor: ["Anything not listed here — just ask"],
   },
 ];
 

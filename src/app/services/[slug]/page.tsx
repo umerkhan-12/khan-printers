@@ -46,7 +46,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
   const number = services.indexOf(service) + 1;
   const work = galleryFor(portfolio.filter((p) => p.service === service.slug));
-  const others = services.filter((s) => s.slug !== service.slug && s.slug !== "custom-printing").slice(0, 4);
+  const others = services.filter((s) => s.slug !== service.slug).slice(0, 4);
 
   const jsonLd = [
     {

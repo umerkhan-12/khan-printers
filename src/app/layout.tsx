@@ -55,6 +55,7 @@ const localBusiness = {
   description: site.description,
   url: site.url,
   image: `${site.url}/og.jpg`,
+  logo: `${site.url}/logo.png`,
   telephone: site.phone.tel,
   email: site.email,
   address: {

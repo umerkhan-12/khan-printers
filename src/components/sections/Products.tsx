@@ -4,22 +4,20 @@ import { ProductTile } from "@/components/ui/ProductTile";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getService, services } from "@/content/services";
-import { serviceWhatsappUrl } from "@/lib/whatsapp";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 const FEATURED = "stickers-labels";
-const CUSTOM = "custom-printing";
 
 /**
  * Catalog on paper, so the product photos (not the page) carry the colour.
  * Desktop grid, 4 columns:
  *   [ featured 2×2 ][ a ][ b ]
  *   [              ][ c ][ d ]
- *   [ e ][ f ][ custom 2×1   ]
+ *   [ e ][ f ][ anything-else 2×1 ]
  */
 export function Products() {
   const featured = getService(FEATURED)!;
-  const custom = getService(CUSTOM)!;
-  const rest = services.filter((s) => s.slug !== FEATURED && s.slug !== CUSTOM);
+  const rest = services.filter((s) => s.slug !== FEATURED);
   const number = (slug: string) => services.findIndex((s) => s.slug === slug) + 1;
 
   return (
@@ -56,7 +54,7 @@ export function Products() {
           ))}
 
           <Reveal as="li" className="col-span-2">
-            <CustomTile index={number(custom.slug)} title={custom.title} description={custom.description} />
+            <SomethingElseTile />
           </Reveal>
         </ul>
       </div>
@@ -65,21 +63,24 @@ export function Products() {
 }
 
 /** The one ink panel in the catalog — a clear "anything else?" call to action. */
-function CustomTile({ index, title, description }: { index: number; title: string; description: string }) {
+function SomethingElseTile() {
+  const title = "Need something else printed?";
   return (
     <div className="on-ink flex h-full flex-col justify-between gap-8 rounded-img bg-surface-inverse p-6 text-text-inverse sm:p-8 lg:min-h-full">
       <div>
-        <p className="label text-accent">{String(index).padStart(2, "0")} — Something else?</p>
+        <p className="label text-accent">Not listed?</p>
         <h3 className="mt-4 font-serif text-h3 text-text-inverse">{title}</h3>
-        <p className="mt-3 max-w-md text-text-inverse-muted">{description}</p>
+        <p className="mt-3 max-w-md text-text-inverse-muted">
+          Send us a photo or a description of what you have in mind, and we’ll tell you how we can print it.
+        </p>
       </div>
       <div className="flex flex-wrap gap-3">
-        <ButtonLink href={serviceWhatsappUrl(title)} external variant="gold" size="md">
+        <ButtonLink href={whatsappUrl()} external variant="gold" size="md">
           <WhatsAppIcon className="size-[1.125rem]" />
           Ask on WhatsApp
         </ButtonLink>
-        <ButtonLink href="/services/custom-printing" variant="ghost-on-ink" size="md">
-          Learn more
+        <ButtonLink href="/#quote" variant="ghost-on-ink" size="md">
+          Get a quote
         </ButtonLink>
       </div>
     </div>

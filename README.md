@@ -56,7 +56,7 @@ https://<domain>/services/stickers-labels
 
 On the home page, `?service=<slug>` preselects a product in the quote form instead, e.g. `https://<domain>/?service=stickers-labels#quote`.
 
-Slugs: `business-cards`, `stickers-labels`, `wedding-invitations`, `brochures-flyers`, `books-registers`, `branded-bags`, `banners`, `custom-printing`.
+Slugs: `stickers-labels`, `business-cards`, `wedding-invitations`, `brochures-flyers`, `books-registers`, `branded-bags`, `banners`.
 
 ## Quote requests by email (optional)
 
@@ -75,9 +75,8 @@ Import the repo in Vercel. Set `NEXT_PUBLIC_SITE_URL` to the final domain, which
 
 ## Pending from client
 
-- Official logo **file** (SVG or high-res PNG). The logo was shared as a chat image only; a text wordmark is used until the file is in the repo (`src/components/layout/Wordmark.tsx`).
-- Confirm whether **Envelopes** and **Packaging** are services (they appear on the logo but not in the confirmed list).
-- Original project photos for every service. Business cards, books/registers and custom printing currently have no image.
+- A vector (SVG) version of the logo would render sharper at small sizes. The current badge is cut from `assets-source/logo.jpeg`.
+- Original project photos for every service. Business cards and books/registers currently have no image.
 - Full street address, then add `site.location.street`.
 - Which days the 9 AM – 9 PM hours apply to, before they're added to structured data.
 - Domain name.
