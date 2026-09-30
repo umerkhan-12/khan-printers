@@ -9,6 +9,14 @@ import cardsNavy from "@/assets/images/business-cards-navy.jpg";
 import wrappingPaper from "@/assets/images/branded-wrapping-paper.jpg";
 import shoppingBags from "@/assets/images/branded-shopping-bags.jpg";
 import rollupBanners from "@/assets/images/rollup-banners.jpg";
+import registersAttendance from "@/assets/images/books-registers-attendance.jpg";
+import officeRegisters from "@/assets/images/books-office-registers.jpg";
+import exerciseBooks from "@/assets/images/books-exercise-books.jpg";
+import diariesPlanners from "@/assets/images/books-diaries-planners.jpg";
+import customPrintedBooks from "@/assets/images/books-custom-printed-books.jpg";
+import referenceBooks from "@/assets/images/books-reference-books.jpg";
+import storyActivityBooks from "@/assets/images/books-story-activity-books.jpg";
+import blankBooksNotepads from "@/assets/images/books-blank-books-notepads.jpg";
 
 export type Media = {
   src: StaticImageData;
@@ -65,6 +73,46 @@ export const media = {
   rollupBanners: {
     src: rollupBanners,
     alt: "Four printed roll-up banner stands",
+    sample: false,
+  },
+  registersAttendance: {
+    src: registersAttendance,
+    alt: "Attendance registers in navy, maroon and green hard covers with an open ruled register",
+    sample: false,
+  },
+  officeRegisters: {
+    src: officeRegisters,
+    alt: "Office registers with hard covers in green, red and black",
+    sample: false,
+  },
+  exerciseBooks: {
+    src: exerciseBooks,
+    alt: "Stack of exercise books with colourful covers and a name label",
+    sample: false,
+  },
+  diariesPlanners: {
+    src: diariesPlanners,
+    alt: "Daily planners and diaries in black, brown and navy covers",
+    sample: false,
+  },
+  customPrintedBooks: {
+    src: customPrintedBooks,
+    alt: "Stack of custom printed books with a branded cover design",
+    sample: false,
+  },
+  referenceBooks: {
+    src: referenceBooks,
+    alt: "Stack of hardbound reference books for mathematics, science, social studies and English",
+    sample: false,
+  },
+  storyActivityBooks: {
+    src: storyActivityBooks,
+    alt: "Illustrated children's story and activity books",
+    sample: false,
+  },
+  blankBooksNotepads: {
+    src: blankBooksNotepads,
+    alt: "Blank books and notepads with kraft and coloured covers",
     sample: false,
   },
 } satisfies Record<string, Media>;

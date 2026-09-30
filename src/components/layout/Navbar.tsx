@@ -78,19 +78,49 @@ export function Navbar() {
     setLastPath(pathname);
     setProductsOpen(false);
   }
+  // …and close automatically on scroll (any direction, past a small threshold).
   useEffect(() => {
     if (!productsOpen) return;
+    const startY = window.scrollY;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setProductsOpen(false);
     const onClick = (e: MouseEvent) => {
       if (!headerRef.current?.contains(e.target as Node)) setProductsOpen(false);
     };
+    const onScroll = () => Math.abs(window.scrollY - startY) > 40 && setProductsOpen(false);
     document.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onClick);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("mousedown", onClick);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [productsOpen]);
+
+  // Hover behaviour (mouse/trackpad only): open on hover, close shortly after leaving.
+  const closeTimer = useRef<number | undefined>(undefined);
+  const hoverOpenedAt = useRef(0);
+  const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const cancelClose = () => window.clearTimeout(closeTimer.current);
+  const hoverOpen = () => {
+    if (!canHover()) return;
+    cancelClose();
+    setProductsOpen((open) => {
+      if (!open) hoverOpenedAt.current = Date.now();
+      return true;
+    });
+  };
+  const scheduleClose = () => {
+    if (!canHover()) return;
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => setProductsOpen(false), 200);
+  };
+  const toggleProducts = () => {
+    // A click right after hover-open shouldn't immediately close the panel.
+    if (Date.now() - hoverOpenedAt.current < 500) return;
+    setProductsOpen((o) => !o);
+  };
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
   const openMenu = () => menuRef.current?.showModal();
   const closeMenu = () => menuRef.current?.close();
@@ -108,6 +138,7 @@ export function Navbar() {
   return (
     <header
       ref={headerRef}
+      onMouseLeave={scheduleClose}
       className={`sticky top-0 z-40 border-b transition-[background-color,border-color,color] duration-500 ${
         dark ? "on-ink bg-surface-inverse text-text-inverse" : "bg-background text-text-strong"
       } ${scrolled || productsOpen ? (dark ? "border-border-inverse" : "border-border") : "border-transparent"}`}
@@ -116,12 +147,12 @@ export function Navbar() {
         <Wordmark tone={dark ? "paper" : "ink"} />
 
         <ul className="hidden items-center gap-9 lg:flex">
-          <li>
+          <li onMouseEnter={hoverOpen}>
             <button
               type="button"
               aria-expanded={productsOpen}
               aria-controls="products-panel"
-              onClick={() => setProductsOpen((o) => !o)}
+              onClick={toggleProducts}
               className={`${linkClass(productsOpen || active === "products")} inline-flex items-center gap-1.5`}
             >
               Products
@@ -131,7 +162,7 @@ export function Navbar() {
             </button>
           </li>
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li key={link.href} onMouseEnter={scheduleClose}>
               <a
                 href={link.href}
                 aria-current={active === idOf(link.href) ? "true" : undefined}
@@ -169,17 +200,30 @@ export function Navbar() {
         </button>
       </nav>
 
-      <ProductsPanel open={productsOpen} onNavigate={() => setProductsOpen(false)} />
+      <ProductsPanel
+        open={productsOpen}
+        onNavigate={() => setProductsOpen(false)}
+        onMouseEnter={cancelClose}
+      />
       <MobileMenu dialogRef={menuRef} onClose={closeMenu} />
     </header>
   );
 }
 
 /** Desktop mega menu: every product with a thumbnail, plus a help card. */
-function ProductsPanel({ open, onNavigate }: { open: boolean; onNavigate: () => void }) {
+function ProductsPanel({
+  open,
+  onNavigate,
+  onMouseEnter,
+}: {
+  open: boolean;
+  onNavigate: () => void;
+  onMouseEnter: () => void;
+}) {
   return (
     <div
       id="products-panel"
+      onMouseEnter={onMouseEnter}
       inert={!open}
       className={`absolute inset-x-0 top-full hidden origin-top border-b border-border bg-background text-text-strong shadow-[0_24px_48px_-24px_rgb(17_26_58/0.25)] transition-[opacity,transform] duration-300 ease-(--ease-soft) lg:block ${
         open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"

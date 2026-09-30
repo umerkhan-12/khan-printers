@@ -220,27 +220,29 @@ function Options({ service, index }: { service: Service; index: string }) {
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
           <SectionHeading index={index} eyebrow="Options" title={`Every kind of ${service.short.toLowerCase()}.`} id="options-title">
-            <p>Tell us the occasion and the look you want — we’ll suggest the paper and finish that suit it.</p>
+            <p>Tell us what you need it for and the look you want — we’ll suggest the paper, binding and finish that suit it.</p>
           </SectionHeading>
         </Reveal>
-        <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7">
+        <div className={`grid gap-10 lg:col-span-7 ${service.types && service.finishes ? "sm:grid-cols-2" : ""}`}>
           {service.types && (
-            <OptionList title="Card types" items={service.types} />
+            <OptionList
+              title={service.typesLabel ?? "Types"}
+              items={service.types}
+              twoColumn={!service.finishes && service.types.length > 5}
+            />
           )}
-          {service.finishes && (
-            <OptionList title="Premium finishes" items={service.finishes} />
-          )}
+          {service.finishes && <OptionList title="Premium finishes" items={service.finishes} />}
         </div>
       </div>
     </section>
   );
 }
 
-function OptionList({ title, items }: { title: string; items: string[] }) {
+function OptionList({ title, items, twoColumn = false }: { title: string; items: string[]; twoColumn?: boolean }) {
   return (
     <Reveal>
       <h3 className="label text-accent-text">{title}</h3>
-      <ul className="mt-4 border-t border-border">
+      <ul className={`mt-4 border-t border-border ${twoColumn ? "sm:grid sm:grid-cols-2 sm:gap-x-8" : ""}`}>
         {items.map((item) => (
           <li key={item} className="flex items-center gap-3 border-b border-border py-4 font-serif text-[1.5rem] leading-tight text-text-strong">
             <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-accent" />
@@ -285,8 +287,12 @@ function WhatToSend({ service, index }: { service: Service; index: string }) {
   );
 }
 
-/** Picks gallery footprints that fill the grid for 1–4 images. */
+/**
+ * Picks gallery footprints that fill the grid. Small source images are laid
+ * out in thirds so they are never upscaled into a blurry full-width tile.
+ */
 function galleryFor(items: PortfolioItem[]): PortfolioItem[] {
+  if (items.length > 0 && items.every((it) => it.src.width < 800)) return items.map((it) => ({ ...it, layout: "third" as const }));
   if (items.length === 1) return [{ ...items[0], layout: "full" }];
   if (items.length === 2) return items.map((it) => ({ ...it, layout: "half" as const }));
   return items.map((it, i) => ({ ...it, layout: i === 0 ? ("full" as const) : ("half" as const) }));

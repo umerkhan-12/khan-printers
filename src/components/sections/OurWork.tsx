@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { portfolio, portfolioHasSamples } from "@/content/portfolio";
+import { homePortfolio, portfolioHasSamples } from "@/content/portfolio";
 
 import { PortfolioGallery } from "./PortfolioGallery";
 
@@ -22,7 +22,7 @@ export function OurWork() {
         </Reveal>
 
         <div className="mt-12 lg:mt-16">
-          <PortfolioGallery items={portfolio} />
+          <PortfolioGallery items={homePortfolio} />
         </div>
       </div>
     </section>

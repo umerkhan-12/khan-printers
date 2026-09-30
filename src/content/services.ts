@@ -11,6 +11,8 @@ export type Service = {
   image?: Media;
   /** Card or product types offered in this category (client-confirmed). */
   types?: string[];
+  /** Heading for the types list, e.g. "Card types". */
+  typesLabel?: string;
   /** Finishes offered (from the client's own marketing material). */
   finishes?: string[];
 };
@@ -40,6 +42,7 @@ export const services: Service[] = [
     description: "Wedding cards and event invitations, printed with care for the occasions that matter most.",
     perfectFor: ["Weddings", "Nikah & walima", "Birthdays", "Corporate events"],
     image: media.weddingCards,
+    typesLabel: "Card types",
     types: ["Nikah cards", "Mehndi cards", "Baraat cards", "Walima cards", "Engagement cards", "Birthday & event invitations"],
     finishes: ["Gold foil", "Silver foil", "Embossing", "Spot UV", "Laser cut"],
   },
@@ -55,8 +58,21 @@ export const services: Service[] = [
     slug: "books-registers",
     title: "Books & Registers",
     short: "Books & Registers",
-    description: "Custom registers, books and record pads printed and bound for everyday business use.",
-    perfectFor: ["Offices", "Schools", "Shops & warehouses", "Clinics"],
+    description: "Registers, exercise books, diaries and custom printed books — printed and bound for school, office and business use.",
+    perfectFor: ["Schools", "Offices", "Shops & warehouses", "Clinics"],
+    image: media.registersAttendance,
+    typesLabel: "What we print",
+    types: [
+      "Registers",
+      "Office registers",
+      "School notebooks",
+      "Exercise books",
+      "Story & activity books",
+      "Reference books",
+      "Diaries & planners",
+      "Blank books & notepads",
+      "Custom printed books",
+    ],
   },
   {
     slug: "branded-bags",
