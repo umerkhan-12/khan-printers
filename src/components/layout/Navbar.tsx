@@ -10,6 +10,7 @@ import {
   ArrowUpRightIcon,
   ChevronRightIcon,
   CloseIcon,
+  FacebookIcon,
   InstagramIcon,
   MenuIcon,
   PhoneIcon,
@@ -368,6 +369,15 @@ function MobileMenu({
           >
             <InstagramIcon className="size-4" />
             Instagram
+          </a>
+          <a
+            href={site.facebook.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-2 hover:text-text-strong"
+          >
+            <FacebookIcon className="size-4" />
+            Facebook
           </a>
         </div>
       </div>

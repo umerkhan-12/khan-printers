@@ -105,6 +105,14 @@ export function InstagramIcon(props: IconProps) {
   );
 }
 
+export function FacebookIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M14.5 8H16V4.5h-2.2C11.4 4.5 10 6 10 8.4V10H8v3.4h2V20h3.5v-6.6h2.2L16 10h-2.5V8.9c0-.6.3-.9 1-.9Z" />
+    </Icon>
+  );
+}
+
 export function PinIcon(props: IconProps) {
   return (
     <Icon {...props}>

@@ -97,7 +97,7 @@ export function Hero() {
 
 function HeroFigure() {
   return (
-    <figure className="relative mx-auto w-full max-w-xl lg:max-w-none">
+    <figure className="relative mx-auto w-full max-w-xl lg:mb-14 lg:max-w-none">
       <div className="relative">
         <CropMarks className="hero-fade" style={delay(900)} />
         <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-surface-inverse-raised lg:aspect-auto lg:h-[clamp(26rem,62svh,42rem)]">
@@ -134,12 +134,6 @@ function HeroFigure() {
         </div>
       </div>
 
-      <figcaption
-        className="hero-fade label mt-4 text-right text-text-inverse-muted sm:mt-6 lg:mt-20"
-        style={delay(1000)}
-      >
-        Fig. 01 — Wedding cards<span className="hidden lg:inline"> &amp; visiting cards</span>
-      </figcaption>
     </figure>
   );
 }

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import { ButtonLink } from "@/components/ui/Button";
-import { ClockIcon, InstagramIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { ClockIcon, FacebookIcon, InstagramIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
@@ -21,6 +21,7 @@ export function QuoteSection({ emailEnabled, index, initialService, title = "Tel
     { Icon: PhoneIcon, label: "Phone", value: site.phone.display, href: `tel:${site.phone.tel}` },
     { Icon: MailIcon, label: "Email", value: site.email, href: `mailto:${site.email}` },
     { Icon: InstagramIcon, label: "Instagram", value: site.instagram.handle, href: site.instagram.url, external: true },
+    { Icon: FacebookIcon, label: "Facebook", value: site.facebook.label, href: site.facebook.url, external: true },
     { Icon: ClockIcon, label: "Hours", value: `Open ${site.hours} · ${site.closed}` },
     { Icon: PinIcon, label: "Location", value: `${site.location.street ? `${site.location.street}, ` : ""}${site.location.city}, ${site.location.country}`, href: site.location.mapUrl, external: true },
   ];

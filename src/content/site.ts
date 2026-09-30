@@ -20,6 +20,10 @@ export const site = {
     handle: "@khanprinterservices",
     url: "https://www.instagram.com/khanprinterservices",
   },
+  facebook: {
+    label: "Khan Printers",
+    url: "https://www.facebook.com/share/1BWA5GqvBM/",
+  },
   location: {
     city: "Karachi",
     country: "Pakistan",

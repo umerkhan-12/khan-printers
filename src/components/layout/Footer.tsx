@@ -1,4 +1,4 @@
-import { InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
@@ -17,6 +17,7 @@ export function Footer() {
     { href: `tel:${site.phone.tel}`, label: "Phone", value: site.phone.display, Icon: PhoneIcon },
     { href: `mailto:${site.email}`, label: "Email", value: site.email, Icon: MailIcon },
     { href: site.instagram.url, label: "Instagram", value: site.instagram.handle, Icon: InstagramIcon, external: true },
+    { href: site.facebook.url, label: "Facebook", value: "Facebook", Icon: FacebookIcon, external: true },
   ];
 
   return (

@@ -72,7 +72,7 @@ const localBusiness = {
   },
   areaServed: { "@type": "City", name: site.location.city },
   hasMap: site.location.mapUrl,
-  sameAs: [site.instagram.url],
+  sameAs: [site.instagram.url, site.facebook.url],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Printing services",

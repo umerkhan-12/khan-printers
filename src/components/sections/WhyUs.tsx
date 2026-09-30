@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { StudioVideo } from "@/components/ui/StudioVideo";
 
 /** Qualitative claims only — no numbers, awards or guarantees unless the client confirms them. */
 const reasons = [
@@ -20,6 +21,18 @@ export function WhyUs() {
             <SectionHeading index="03" eyebrow="Why Khan Printers" title="Printing that makes your brand look right." id="why-title">
               <p>Good printing is in the details. We take care of them so your cards, labels and packaging feel as good as they look.</p>
             </SectionHeading>
+
+            <figure className="mt-10 max-w-[20rem]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-img bg-surface-muted">
+                <StudioVideo
+                  src="/video/studio-cutting"
+                  poster="/video/studio-cutting.jpg"
+                  label="A print run being trimmed on the paper cutter in the Khan Printers workshop"
+                  className="absolute inset-0 size-full object-cover"
+                />
+              </div>
+              <figcaption className="label mt-3 text-text-muted">In our workshop — trimming a print run to size</figcaption>
+            </figure>
           </div>
         </Reveal>
 
