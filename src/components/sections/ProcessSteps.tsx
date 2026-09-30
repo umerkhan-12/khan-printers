@@ -25,9 +25,9 @@ export function ProcessSteps({ index = "04" }: { index?: string }) {
               delay={i * 80}
               className="relative grid grid-cols-[3.5rem_1fr] gap-x-4 border-t border-text-strong/15 py-6 lg:block lg:pt-8"
             >
-              <span className="font-serif text-[2.5rem] leading-none text-accent-text">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-serif text-[2.5rem] leading-none text-accent-text italic lg:text-[3.25rem]">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h3 className="text-lg font-medium text-text-strong lg:mt-6">{step.title}</h3>
+                <h3 className="font-serif text-[1.5rem] leading-tight text-text-strong lg:mt-8">{step.title}</h3>
                 <p className="mt-2 text-[0.9375rem] text-text-muted">{step.text}</p>
               </div>
             </Reveal>

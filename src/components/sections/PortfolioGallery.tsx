@@ -39,7 +39,7 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
 
   return (
     <>
-      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:auto-rows-[7.5rem] lg:grid-cols-12 lg:gap-5">
+      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:auto-rows-[7.5rem] lg:grid-cols-12 lg:gap-5 xl:auto-rows-[8.75rem]">
         {items.map((item, i) => {
           const layout = tileLayout[item.layout];
           return (

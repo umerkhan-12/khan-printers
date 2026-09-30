@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/icons";
+import { RegistrationMark } from "@/components/ui/PrintMarks";
 import { ProductTile } from "@/components/ui/ProductTile";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -66,15 +67,17 @@ export function Products() {
 function SomethingElseTile() {
   const title = "Need something else printed?";
   return (
-    <div className="on-ink flex h-full flex-col justify-between gap-8 rounded-img bg-surface-inverse p-6 text-text-inverse sm:p-8 lg:min-h-full">
-      <div>
+    <div className="on-ink relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-img bg-surface-inverse p-6 text-text-inverse sm:p-8 lg:min-h-full">
+      {/* Oversized registration mark — a printer's detail, purely decorative. */}
+      <RegistrationMark className="pointer-events-none absolute -right-16 -bottom-16 size-72 text-accent/15 [&>*]:[vector-effect:non-scaling-stroke]" />
+      <div className="relative">
         <p className="label text-accent">Not listed?</p>
         <h3 className="mt-4 font-serif text-h3 text-text-inverse">{title}</h3>
         <p className="mt-3 max-w-md text-text-inverse-muted">
           Send us a photo or a description of what you have in mind, and we’ll tell you how we can print it.
         </p>
       </div>
-      <div className="flex flex-wrap gap-3">
+      <div className="relative flex flex-wrap gap-3">
         <ButtonLink href={whatsappUrl()} external variant="gold" size="md">
           <WhatsAppIcon className="size-[1.125rem]" />
           Ask on WhatsApp
