@@ -17,6 +17,7 @@ export type QuoteDetails = {
   service: string;
   quantity?: string;
   message?: string;
+  design?: string;
   hasAttachment?: boolean;
 };
 
@@ -24,6 +25,7 @@ export function quoteMessage(q: QuoteDetails) {
   const details = [
     `Service: ${q.service}`,
     q.quantity && `Quantity: ${q.quantity}`,
+    q.design && `Design: ${q.design}`,
     `Name: ${q.name}`,
     `WhatsApp: ${q.phone}`,
     q.message && `Details: ${q.message}`,

@@ -1,5 +1,5 @@
 import { site } from "@/content/site";
-import { MAX_UPLOAD_BYTES, validateQuote, type QuoteFields } from "@/lib/quote";
+import { designLabel, MAX_UPLOAD_BYTES, validateQuote, type QuoteFields } from "@/lib/quote";
 
 /**
  * Emails a copy of each quote request to the business via Resend
@@ -53,6 +53,7 @@ export async function POST(request: Request) {
     service: text(form, "service"),
     quantity: text(form, "quantity"),
     message: text(form, "message"),
+    design: text(form, "design"),
   };
   const upload = form.get("file");
   const file = upload instanceof File && upload.size > 0 ? upload : null;
@@ -69,6 +70,7 @@ export async function POST(request: Request) {
     `WhatsApp:  ${fields.phone}  (https://wa.me/${whatsappDigits})`,
     `Service:   ${fields.service}`,
     `Quantity:  ${fields.quantity || "—"}`,
+    `Design:    ${designLabel(fields.design) || "—"}`,
     ``,
     `Details:`,
     fields.message || "—",

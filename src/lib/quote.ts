@@ -11,7 +11,16 @@ export type QuoteFields = {
   service: string;
   quantity: string;
   message: string;
+  /** "" (not answered), "ready" or "help". */
+  design: string;
 };
+
+export const DESIGN_OPTIONS = {
+  ready: "I have a ready design",
+  help: "I need design help",
+} as const;
+
+export const designLabel = (value: string) => DESIGN_OPTIONS[value as keyof typeof DESIGN_OPTIONS] ?? "";
 
 export type QuoteErrors = Partial<Record<keyof QuoteFields | "file", string>>;
 
@@ -33,6 +42,7 @@ export function validateQuote(fields: QuoteFields, file?: File | null): QuoteErr
 
   if (!fields.service) errors.service = "Please choose what you need printed.";
   if (fields.quantity.length > LIMITS.quantity) errors.quantity = "Please keep this short.";
+  if (fields.design && !designLabel(fields.design)) errors.design = "Please choose one of the options.";
   if (fields.message.length > LIMITS.message) errors.message = `Please keep this under ${LIMITS.message} characters.`;
 
   if (file && file.size > MAX_UPLOAD_BYTES) errors.file = "File is larger than 4 MB. Send it on WhatsApp instead.";

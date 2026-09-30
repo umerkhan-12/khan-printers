@@ -28,8 +28,8 @@ export const site = {
     city: "Karachi",
     country: "Pakistan",
     countryCode: "PK",
-    /** Full street address pending from client. */
-    street: null as string | null,
+    /** Client-confirmed landmark address (full street address not provided). */
+    street: "Near Mowloo Juma Hospital" as string | null,
     /** Client's Google Maps share link (opens the exact business listing). */
     mapUrl: "https://share.google/8DY42naEGRtLBWf99",
     /** Google Maps embed URL supplied by the client ("Share → Embed a map" → src). */

@@ -47,10 +47,10 @@ export function Hero() {
         <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-12 lg:gap-12 lg:py-10">
           <div className="lg:col-span-7">
             <h1 id="hero-title" className="font-serif text-hero text-text-inverse">
-              <Line d={200}>Premium printing,</Line>
+              <Line d={200}>Premium printing,</Line>{" "}
               <Line d={320}>
                 <em className="text-accent">made for your</em>
-              </Line>
+              </Line>{" "}
               {/* The changing word has a line of its own, so swapping words never reflows the hero. */}
               <Line d={440}>
                 <em className="text-accent">

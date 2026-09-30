@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } fr
 import { buttonClasses } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { getService, services } from "@/content/services";
-import { ACCEPTED_UPLOADS, LIMITS, validateQuote, type QuoteErrors, type QuoteFields } from "@/lib/quote";
+import { ACCEPTED_UPLOADS, DESIGN_OPTIONS, designLabel, LIMITS, validateQuote, type QuoteErrors, type QuoteFields } from "@/lib/quote";
 import { quoteMessage, whatsappUrl } from "@/lib/whatsapp";
 
 const SELECT_SERVICE_EVENT = "kp:select-service";
@@ -20,7 +20,7 @@ export function ServiceFromUrl() {
   return null;
 }
 
-const emptyFields: QuoteFields = { name: "", phone: "", service: "", quantity: "", message: "" };
+const emptyFields: QuoteFields = { name: "", phone: "", service: "", quantity: "", message: "", design: "" };
 
 type Status = { state: "idle" } | { state: "sent"; waUrl: string; hasFile: boolean; emailed: boolean | null };
 
@@ -66,6 +66,7 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
         service: serviceTitle,
         quantity: fields.quantity.trim(),
         message: fields.message.trim(),
+        design: designLabel(fields.design),
         hasAttachment: !!file,
       }),
     );
@@ -178,7 +179,7 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
         )}
       </Field>
 
-      <Field label="Quantity" optional error={errors.quantity} className="sm:col-span-2">
+      <Field label="Quantity" optional error={errors.quantity} className="sm:col-span-1">
         {(props) => (
           <input
             {...props}
@@ -191,6 +192,31 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
           />
         )}
       </Field>
+
+      <fieldset className="sm:col-span-1">
+        <legend className="mb-2 flex w-full items-baseline justify-between text-sm font-medium text-text-strong">
+          Do you have a design?
+          <span className="text-xs font-normal text-text-muted">Optional</span>
+        </legend>
+        <div className="grid grid-cols-2 gap-2">
+          {(Object.keys(DESIGN_OPTIONS) as (keyof typeof DESIGN_OPTIONS)[]).map((key) => (
+            <label
+              key={key}
+              className="flex h-12 cursor-pointer items-center justify-center rounded-input border border-text-strong/20 bg-background/60 px-3 text-center text-sm leading-tight text-text-muted transition-colors duration-200 hover:border-text-strong/40 has-checked:border-primary has-checked:bg-primary has-checked:text-text-inverse has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus"
+            >
+              <input
+                type="radio"
+                name="design"
+                value={key}
+                checked={fields.design === key}
+                onChange={() => set("design")(key)}
+                className="sr-only"
+              />
+              {key === "ready" ? "Ready design" : "Need design help"}
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <Field label="Details" optional error={errors.message} className="sm:col-span-2">
         {(props) => (
@@ -226,7 +252,7 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
       {/* Honeypot for bots — hidden from people and assistive tech. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label>
-          Company
+          Leave this field empty
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
