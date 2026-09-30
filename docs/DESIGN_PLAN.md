@@ -1,6 +1,6 @@
 # Khan Printers — Design & Implementation Plan (v1)
 
-Status: **Phase 1–4 planning. Awaiting design-direction sign-off and original photos before implementation.**
+Status: **v1 implemented (homepage). Awaiting client's original photos, logo, address and domain.** See README for how to swap in real photos.
 
 ---
 
