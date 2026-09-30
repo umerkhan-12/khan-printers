@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 type Props = {
   words: string[];
@@ -9,50 +9,49 @@ type Props = {
 };
 
 /**
- * Word that keeps cycling in place with a slide-up. All words share one grid
- * cell, so the line never changes width or jumps.
+ * Headline word that keeps changing: the old word lifts away while the new
+ * one's letters rise into the (masked) line one after another. Only the
+ * current and outgoing words are ever rendered, so nothing overlaps.
  *
- * The server HTML contains only the first word (clean for search engines),
- * and assistive tech always reads the first word; the other words are added
- * once rotation starts. Motion is skipped for users who prefer reduced motion.
+ * The server HTML contains only the first word, and screen readers always
+ * get the first word. No motion for users who prefer reduced motion.
  */
-export function RotatingWord({ words, interval = 2600 }: Props) {
+export function RotatingWord({ words, interval = 2800 }: Props) {
   const [index, setIndex] = useState(0);
-  const [started, setStarted] = useState(false);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let timer: number | undefined;
     const start = window.setTimeout(() => {
-      setStarted(true);
       timer = window.setInterval(() => {
-        if (!document.hidden) setIndex((i) => (i + 1) % words.length);
+        if (document.hidden) return;
+        setIndex((i) => (i + 1) % words.length);
+        setTick((t) => t + 1);
       }, interval);
-    }, 1600); // let the headline entrance finish first
+    }, 1800); // let the headline entrance finish first
     return () => {
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
   }, [words.length, interval]);
 
-  const previous = (index - 1 + words.length) % words.length;
-  const visible = started ? words : words.slice(0, 1);
+  if (tick === 0) return <span className="whitespace-nowrap">{words[0]}</span>;
 
+  const previous = (index - 1 + words.length) % words.length;
   return (
-    <span className="relative inline-grid justify-items-start whitespace-nowrap">
-      {visible.map((word, i) => {
-        const state =
-          i === index ? "translate-y-0 opacity-100" : i === previous ? "-translate-y-[70%] opacity-0" : "translate-y-[70%] opacity-0";
-        return (
-          <span
-            key={word}
-            aria-hidden={i === 0 ? undefined : true}
-            className={`col-start-1 row-start-1 transition-[transform,opacity] duration-700 ease-(--ease-soft) ${state}`}
-          >
-            {word}
+    <span className="relative inline-block whitespace-nowrap">
+      <span className="sr-only">{words[0]}</span>
+      <span key={`out-${tick}`} aria-hidden="true" className="word-out absolute top-0 left-0">
+        {words[previous]}
+      </span>
+      <span key={`in-${tick}`} aria-hidden="true" className="inline-block">
+        {Array.from(words[index]).map((ch, i) => (
+          <span key={i} className="letter-in" style={{ animationDelay: `${120 + i * 38}ms` } as CSSProperties}>
+            {ch === " " ? " " : ch}
           </span>
-        );
-      })}
+        ))}
+      </span>
     </span>
   );
 }

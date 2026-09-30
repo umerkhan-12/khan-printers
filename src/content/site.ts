@@ -26,6 +26,13 @@ export const site = {
     countryCode: "PK",
     /** Full street address pending from client. */
     street: null as string | null,
+    /** Client's Google Maps share link (opens the exact business listing). */
+    mapUrl: "https://share.google/8DY42naEGRtLBWf99",
+    /**
+     * Google Maps embed URL for the live map ("Share → Embed a map" → the src="…" value).
+     * Leave null until supplied — never guess, several businesses share this name.
+     */
+    mapEmbedUrl: null as string | null,
   },
   /** Days not yet confirmed — do not add to structured data until they are. */
   hours: "9 AM – 9 PM",

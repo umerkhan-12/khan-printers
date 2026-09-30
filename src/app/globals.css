@@ -43,7 +43,7 @@
   --text-display: clamp(2.75rem, 1.6rem + 4.4vw, 5.5rem);
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: -0.02em;
-  --text-hero: clamp(3.25rem, 0.9rem + 7.4vw, 7.5rem);
+  --text-hero: clamp(3rem, 1rem + 6vw, 6.5rem);
   --text-hero--line-height: 0.92;
   --text-hero--letter-spacing: -0.025em;
   --text-h2: clamp(2.25rem, 1.55rem + 3.1vw, 4.25rem);
@@ -174,13 +174,50 @@
   }
 
   .hero-reveal {
-    animation: hero-reveal 1.4s var(--ease-soft) 300ms both;
+    animation: hero-reveal 1.2s var(--ease-soft) both;
   }
 
   .hero-zoom {
-    animation: hero-zoom 2.2s var(--ease-soft) 300ms both;
+    animation: hero-zoom 2.2s var(--ease-soft) both;
   }
 
+}
+
+/* Headline word swap: letters rise into the masked line, old word lifts away. */
+@layer components {
+  .letter-in {
+    display: inline-block;
+    animation: letter-in 650ms var(--ease-soft) both;
+  }
+
+  .word-out {
+    animation: word-out 380ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  /* News-style product ticker */
+  .ticker-track {
+    animation: ticker 40s linear infinite;
+  }
+}
+
+@keyframes letter-in {
+  from {
+    transform: translateY(0.95em);
+    opacity: 0;
+  }
+}
+
+@keyframes word-out {
+  to {
+    transform: translateY(-0.55em);
+    opacity: 0;
+  }
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes hero-rise {
@@ -196,9 +233,11 @@
   }
 }
 
+/* The hero photo is the LCP element: it must be visible from the first frame,
+   so the reveal only trims the edges in (never starts fully hidden). */
 @keyframes hero-reveal {
   from {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(6% 6% 6% 6%);
   }
   to {
     clip-path: inset(0 0 0 0);
@@ -212,6 +251,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+
+  .ticker {
+    overflow-x: auto;
+  }
+
   html {
     scroll-behavior: auto;
   }

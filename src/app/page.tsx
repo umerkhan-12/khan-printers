@@ -1,5 +1,6 @@
 import { Faq } from "@/components/sections/Faq";
 import { Hero } from "@/components/sections/Hero";
+import { Location } from "@/components/sections/Location";
 import { OurWork } from "@/components/sections/OurWork";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { QuoteSection } from "@/components/sections/QuoteSection";
@@ -19,6 +20,7 @@ export default function HomePage() {
       <ProcessSteps />
       <Faq index="05" />
       <QuoteSection index="06" emailEnabled={emailEnabled} />
+      <Location index="07" />
     </>
   );
 }

@@ -14,14 +14,14 @@ export type PortfolioItem = Media & {
  * categories and orientations to keep the grid rhythmic.
  */
 export const portfolio: PortfolioItem[] = [
-  { id: "wedding-suite", service: "wedding-invitations", category: "Invitations", layout: "feature", ...media.weddingSuite },
-  { id: "wrapping-paper", service: "branded-bags", category: "Branded Paper", layout: "tall", ...media.wrappingPaper },
+  { id: "wedding-cards", service: "wedding-invitations", category: "Wedding Cards", layout: "feature", ...media.weddingCards },
+  { id: "cards-gold-geometric", service: "business-cards", category: "Visiting Cards", layout: "tall", ...media.cardsGoldGeometric },
   { id: "stickers", service: "stickers-labels", category: "Stickers & Labels", layout: "third", ...media.stickersLabels },
   { id: "rollup-banners", service: "banners", category: "Banners", layout: "wide", ...media.rollupBanners },
+  { id: "cards-gold-diagonal", service: "business-cards", category: "Visiting Cards", layout: "half", ...media.cardsGoldDiagonal },
   { id: "shopping-bags", service: "branded-bags", category: "Shopping Bags", layout: "half", ...media.shoppingBags },
-  { id: "brochure", service: "brochures-flyers", category: "Brochures", layout: "half", ...media.brochureTrifold },
-  { id: "panaflex-restaurant", service: "banners", category: "Pana Flex", layout: "half", ...media.panaflexRestaurant },
-  { id: "panaflex-fashion", service: "banners", category: "Pana Flex", layout: "half", ...media.panaflexFashion },
+  { id: "wrapping-paper", service: "branded-bags", category: "Branded Paper", layout: "half", ...media.wrappingPaper },
+  { id: "cards-navy", service: "business-cards", category: "Visiting Cards", layout: "half", ...media.cardsNavy },
 ];
 
 export const portfolioHasSamples = portfolio.some((item) => item.sample);

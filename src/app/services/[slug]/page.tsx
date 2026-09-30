@@ -47,6 +47,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   const number = services.indexOf(service) + 1;
   const work = galleryFor(portfolio.filter((p) => p.service === service.slug));
   const others = services.filter((s) => s.slug !== service.slug).slice(0, 4);
+  const hasOptions = Boolean(service.types?.length || service.finishes?.length);
+  let n = 0;
+  const next = () => String(++n).padStart(2, "0");
 
   const jsonLd = [
     {
@@ -70,13 +73,14 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   return (
     <>
       <ServiceHero service={service} number={number} />
-      <WhatToSend service={service} />
+      {hasOptions && <Options service={service} index={next()} />}
+      <WhatToSend service={service} index={next()} />
 
       {work.length > 0 && (
         <section aria-labelledby="work-title" className="section-y pt-0 lg:pt-0">
           <div className="container-page">
             <Reveal>
-              <SectionHeading index="02" eyebrow="Examples" title={`${service.short} we print`} id="work-title" />
+              <SectionHeading index={next()} eyebrow="Examples" title={`${service.short} we print`} id="work-title" />
             </Reveal>
             <div className="mt-12">
               <PortfolioGallery items={work} />
@@ -85,10 +89,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </section>
       )}
 
-      <ProcessSteps index={work.length > 0 ? "03" : "02"} />
-      <Faq index={work.length > 0 ? "04" : "03"} />
+      <ProcessSteps index={next()} />
+      <Faq index={next()} />
       <QuoteSection
-        index={work.length > 0 ? "05" : "04"}
+        index={next()}
         emailEnabled={emailEnabled}
         initialService={service.slug}
         title={`Get a quote for ${service.short.toLowerCase()}.`}
@@ -209,7 +213,46 @@ function ServiceHero({ service, number }: { service: Service; number: number }) 
   );
 }
 
-function WhatToSend({ service }: { service: Service }) {
+/** Card types and finishes, when the client offers a choice (e.g. wedding cards). */
+function Options({ service, index }: { service: Service; index: string }) {
+  return (
+    <section aria-labelledby="options-title" className="section-y bg-surface-muted">
+      <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-5">
+          <SectionHeading index={index} eyebrow="Options" title={`Every kind of ${service.short.toLowerCase()}.`} id="options-title">
+            <p>Tell us the occasion and the look you want — we’ll suggest the paper and finish that suit it.</p>
+          </SectionHeading>
+        </Reveal>
+        <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7">
+          {service.types && (
+            <OptionList title="Card types" items={service.types} />
+          )}
+          {service.finishes && (
+            <OptionList title="Premium finishes" items={service.finishes} />
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OptionList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <Reveal>
+      <h3 className="label text-accent-text">{title}</h3>
+      <ul className="mt-4 border-t border-border">
+        {items.map((item) => (
+          <li key={item} className="flex items-center gap-3 border-b border-border py-4 font-serif text-[1.5rem] leading-tight text-text-strong">
+            <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-accent" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </Reveal>
+  );
+}
+
+function WhatToSend({ service, index }: { service: Service; index: string }) {
   const items = [
     { title: "What you need", text: `The ${service.short.toLowerCase()} you want and the size, if you know it.` },
     { title: "Quantity", text: "How many you need — we’ll quote for exactly that." },
@@ -222,7 +265,7 @@ function WhatToSend({ service }: { service: Service }) {
     <section aria-labelledby="send-title" className="section-y">
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
-          <SectionHeading index="01" eyebrow="Ordering" title="What to send us for a quote." id="send-title">
+          <SectionHeading index={index} eyebrow="Ordering" title="What to send us for a quote." id="send-title">
             <p>Share these on WhatsApp or in the form below. Don’t have everything? Send what you have — we’ll help with the rest.</p>
           </SectionHeading>
         </Reveal>

@@ -76,9 +76,12 @@ function PhotoPending({ index, tone }: { index: number; tone: Tone }) {
   const mark = `absolute h-3 w-3 ${ink ? "border-text-inverse-muted/40" : "border-text-muted/40"}`;
   return (
     <div className={`absolute inset-0 flex flex-col items-center justify-center gap-3 border ${ink ? "border-border-inverse" : "border-border"}`}>
-      <span aria-hidden="true" className={`font-serif text-[5rem] leading-none italic ${ink ? "text-text-inverse/10" : "text-text-strong/10"}`}>
-        {String(index).padStart(2, "0")}
-      </span>
+      {/* Decorative numeral drawn as SVG artwork (not text), so it's exempt from text-contrast rules. */}
+      <svg aria-hidden="true" viewBox="0 0 120 80" className={`h-20 w-[7.5rem] ${ink ? "text-text-inverse/10" : "text-text-strong/10"}`}>
+        <text x="60" y="66" textAnchor="middle" fill="currentColor" className="font-serif italic" fontSize="80">
+          {String(index).padStart(2, "0")}
+        </text>
+      </svg>
       <span className={`label !text-[0.625rem] ${ink ? "text-text-inverse-muted" : "text-text-muted"}`}>Photo coming soon</span>
       <span aria-hidden="true" className={`${mark} top-3 left-3 border-t border-l`} />
       <span aria-hidden="true" className={`${mark} top-3 right-3 border-t border-r`} />

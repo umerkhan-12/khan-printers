@@ -9,6 +9,10 @@ export type Service = {
   /** Who typically orders this — describes customers, not capabilities. */
   perfectFor: string[];
   image?: Media;
+  /** Card or product types offered in this category (client-confirmed). */
+  types?: string[];
+  /** Finishes offered (from the client's own marketing material). */
+  finishes?: string[];
 };
 
 /** Confirmed services only (client list, Sep 2026). Order = display order. */
@@ -27,6 +31,7 @@ export const services: Service[] = [
     short: "Business Cards",
     description: "Visiting cards that feel as professional as your business — in the finish and quantity you need.",
     perfectFor: ["Business owners", "Sales teams", "Freelancers", "Shops & showrooms"],
+    image: media.cardsGoldGeometric,
   },
   {
     slug: "wedding-invitations",
@@ -34,7 +39,9 @@ export const services: Service[] = [
     short: "Invitations",
     description: "Wedding cards and event invitations, printed with care for the occasions that matter most.",
     perfectFor: ["Weddings", "Nikah & walima", "Birthdays", "Corporate events"],
-    image: media.weddingSuite,
+    image: media.weddingCards,
+    types: ["Nikah cards", "Mehndi cards", "Baraat cards", "Walima cards", "Engagement cards", "Birthday & event invitations"],
+    finishes: ["Gold foil", "Silver foil", "Embossing", "Spot UV", "Laser cut"],
   },
   {
     slug: "brochures-flyers",

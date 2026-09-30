@@ -24,7 +24,9 @@ import { Wordmark } from "./Wordmark";
 const idOf = (href: string) => href.split("#")[1] ?? "";
 
 // Non-nav sections are observed too, so the highlight clears when they are in view.
-const sectionIds = ["top", "products", ...navLinks.map((l) => idOf(l.href)), "process"];
+const sectionIds = ["top", "products", ...navLinks.map((l) => idOf(l.href)), "process", "location"];
+/** Sections that light up a nav link other than their own id. */
+const activeAlias: Record<string, string> = { location: "contact" };
 
 /** Highlights the nav link for the section currently in view. */
 function useActiveSection(ids: string[], pathname: string) {
@@ -49,7 +51,8 @@ function useActiveSection(ids: string[], pathname: string) {
 
 export function Navbar() {
   const pathname = usePathname();
-  const active = useActiveSection(sectionIds, pathname);
+  const rawActive = useActiveSection(sectionIds, pathname);
+  const active = rawActive ? (activeAlias[rawActive] ?? rawActive) : null;
   const menuRef = useRef<HTMLDialogElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);

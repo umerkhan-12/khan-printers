@@ -13,10 +13,10 @@ import { serviceHref, services } from "@/content/services";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
-const heroImage = media.weddingSuite;
+const heroImage = media.weddingCards;
 
 /** Cycles in the headline. The first word is what search engines and screen readers get. */
-const headlineWords = ["brand.", "big day.", "shop.", "event."];
+const headlineWords = ["brand.", "mehndi.", "nikah.", "walima.", "shop.", "big day."];
 
 /**
  * Full-screen "ink" hero. Entrance motion is pure CSS (see .hero-* in
@@ -46,13 +46,14 @@ export function Hero() {
         <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-12 lg:gap-12 lg:py-10">
           <div className="lg:col-span-7">
             <h1 id="hero-title" className="font-serif text-hero text-text-inverse">
-              <Line d={200}>Premium</Line>
+              <Line d={200}>Premium printing,</Line>
               <Line d={320}>
-                printing, <em className="text-accent">made</em>
+                <em className="text-accent">made for your</em>
               </Line>
+              {/* The changing word has a line of its own, so swapping words never reflows the hero. */}
               <Line d={440}>
                 <em className="text-accent">
-                  for your <RotatingWord words={headlineWords} />
+                  <RotatingWord words={headlineWords} />
                 </em>
               </Line>
             </h1>
@@ -90,7 +91,7 @@ export function Hero() {
         </div>
       </div>
 
-      <ServiceIndex />
+      <ServiceTicker />
     </section>
   );
 }
@@ -108,7 +109,7 @@ function HeroFigure() {
             preload
             placeholder="blur"
             sizes="(min-width: 1320px) 480px, (min-width: 1024px) 38vw, (min-width: 576px) 576px, 100vw"
-            className="hero-zoom object-cover object-[58%_50%]"
+            className="hero-zoom object-cover object-[50%_40%]"
           />
           {heroImage.sample && <SampleBadge />}
         </div>
@@ -124,7 +125,7 @@ function HeroFigure() {
         className="hero-fade label mt-4 flex justify-end text-text-inverse-muted sm:mt-10"
         style={delay(1000)}
       >
-        Fig. 01 — Invitation suite
+        Fig. 01 — Wedding card suite
       </figcaption>
     </figure>
   );
@@ -140,24 +141,38 @@ function Line({ d, children }: { d: number; children: ReactNode }) {
 }
 
 /**
- * Static index of every product — scannable in one glance on desktop,
- * a thumb-scrollable row on mobile. Each item links to its product page.
+ * News-style ticker of every product. The first copy is real, focusable links;
+ * the second copy only fills the loop and is hidden from assistive tech.
+ * Pauses on hover/focus; becomes a static scrollable row with reduced motion.
  */
-function ServiceIndex() {
+function ServiceTicker() {
+  const row = (copy: number) => (
+    <ul className="flex shrink-0 items-center" aria-hidden={copy === 1 ? true : undefined}>
+      {services.map((s) => (
+        <li key={s.slug} className="flex items-center">
+          <Link
+            href={serviceHref(s.slug)}
+            tabIndex={copy === 1 ? -1 : undefined}
+            className="inline-flex min-h-11 items-center px-6 font-serif text-[1.375rem] whitespace-nowrap text-text-inverse italic transition-colors hover:text-accent lg:px-8 lg:text-[1.625rem]"
+          >
+            {s.short}
+          </Link>
+          <span aria-hidden="true" className="text-xs text-accent">
+            ✦
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <nav aria-label="What we print" className="hero-fade border-t border-border-inverse" style={delay(1200)}>
-      <ul className="container-page flex snap-x gap-x-8 overflow-x-auto py-4 [scrollbar-width:none] lg:justify-between lg:gap-x-4 lg:py-5 [&::-webkit-scrollbar]:hidden">
-        {services.map((s) => (
-          <li key={s.slug} className="shrink-0 snap-start">
-            <Link
-              href={serviceHref(s.slug)}
-              className="inline-flex min-h-11 items-center font-serif text-[1.375rem] whitespace-nowrap text-text-inverse italic transition-colors hover:text-accent lg:text-[1.5rem]"
-            >
-              {s.short}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="ticker group flex overflow-hidden py-3 lg:py-4">
+        <div className="ticker-track flex group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]">
+          {row(0)}
+          {row(1)}
+        </div>
+      </div>
     </nav>
   );
 }

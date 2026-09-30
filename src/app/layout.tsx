@@ -65,6 +65,7 @@ const localBusiness = {
     ...(site.location.street ? { streetAddress: site.location.street } : {}),
   },
   areaServed: { "@type": "City", name: site.location.city },
+  hasMap: site.location.mapUrl,
   sameAs: [site.instagram.url],
   hasOfferCatalog: {
     "@type": "OfferCatalog",

@@ -37,7 +37,7 @@ Colour tokens are semantic (`background`, `surface`, `surface-inverse`, `primary
 
 ## Replacing sample images with real photos
 
-The images shown now are **illustrative samples**, not Khan Printers' own work. Each one shows a visible "Sample image" label.
+All current images were supplied and approved by the client. An image marked `sample: true` in `media.ts` shows a visible "Sample image" label — use that for any image the client has not approved.
 
 1. Put the original photo in `assets-source/` (kept as the untouched original).
 2. Export a web copy (max ~2000px on the long side, JPG) to `src/assets/images/`.
@@ -76,7 +76,8 @@ Import the repo in Vercel. Set `NEXT_PUBLIC_SITE_URL` to the final domain, which
 ## Pending from client
 
 - A vector (SVG) version of the logo would render sharper at small sizes. The current badge is cut from `assets-source/logo.jpeg`.
-- Original project photos for every service. Business cards and books/registers currently have no image.
+- Photos for Books & Registers (currently a designed "photo coming soon" tile) and more real project photos over time.
 - Full street address, then add `site.location.street`.
+- Google Maps **embed** URL for the live map: on Google Maps open the business → Share → *Embed a map* → copy the `src="…"` value into `site.location.mapEmbedUrl`. Until then the Location section links to the client's map (`site.location.mapUrl`).
 - Which days the 9 AM – 9 PM hours apply to, before they're added to structured data.
 - Domain name.

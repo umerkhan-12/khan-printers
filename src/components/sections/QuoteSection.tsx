@@ -22,7 +22,7 @@ export function QuoteSection({ emailEnabled, index, initialService, title = "Tel
     { Icon: MailIcon, label: "Email", value: site.email, href: `mailto:${site.email}` },
     { Icon: InstagramIcon, label: "Instagram", value: site.instagram.handle, href: site.instagram.url, external: true },
     { Icon: ClockIcon, label: "Hours", value: `Open ${site.hours}` },
-    { Icon: PinIcon, label: "Location", value: `${site.location.street ? `${site.location.street}, ` : ""}${site.location.city}, ${site.location.country}` },
+    { Icon: PinIcon, label: "Location", value: `${site.location.street ? `${site.location.street}, ` : ""}${site.location.city}, ${site.location.country}`, href: site.location.mapUrl, external: true },
   ];
 
   return (

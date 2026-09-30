@@ -9,14 +9,14 @@ export function OurWork() {
     <section id="work" aria-labelledby="work-title" className="section-y">
       <div className="container-page">
         <Reveal>
-          <SectionHeading index="02" eyebrow="Our Work" title={portfolioHasSamples ? "What we print." : "Real projects. Real printing."} id="work-title">
+          <SectionHeading index="02" eyebrow="Our Work" title="Our work." id="work-title">
             {portfolioHasSamples ? (
               <p>
                 Stickers, invitations, packaging, brochures and large-format prints.{" "}
                 <span className="text-text">Sample images are shown</span> until our own project photos are added.
               </p>
             ) : (
-              <p>A selection of recent work printed for businesses and families in Karachi.</p>
+              <p>Visiting cards, wedding cards, stickers, packaging and banners — a look at what we design and print.</p>
             )}
           </SectionHeading>
         </Reveal>
