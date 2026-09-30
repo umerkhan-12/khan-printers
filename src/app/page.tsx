@@ -3,7 +3,6 @@ import { OurWork } from "@/components/sections/OurWork";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { QuoteSection } from "@/components/sections/QuoteSection";
 import { Services } from "@/components/sections/Services";
-import { ServiceStrip } from "@/components/sections/ServiceStrip";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 // Evaluated at build time: the upload field and email copy only appear once email is configured.
@@ -13,7 +12,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <ServiceStrip />
       <OurWork />
       <Services />
       <WhyUs />

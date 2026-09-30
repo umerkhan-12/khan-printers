@@ -67,7 +67,7 @@ export const services: Service[] = [
 ];
 
 /** The service shown as the large editorial feature. */
-export const featuredServiceSlug = "wedding-invitations";
+export const featuredServiceSlug = "stickers-labels";
 
 export function getService(slug: string | null | undefined) {
   return services.find((s) => s.slug === slug);

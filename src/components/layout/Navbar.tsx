@@ -37,9 +37,15 @@ export function Navbar() {
   const active = useActiveSection(sectionIds);
   const menuRef = useRef<HTMLDialogElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  // The header is ink-toned while it sits over the dark hero, paper-toned after.
+  const [overHero, setOverHero] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const hero = document.getElementById("top");
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      setOverHero(!!hero && hero.getBoundingClientRect().bottom > 72);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -47,15 +53,16 @@ export function Navbar() {
 
   const openMenu = () => menuRef.current?.showModal();
   const closeMenu = () => menuRef.current?.close();
+  const dark = overHero;
 
   return (
     <header
-      className={`sticky top-0 z-40 bg-paper transition-[border-color] duration-300 border-b ${
-        scrolled ? "border-line" : "border-transparent"
-      }`}
+      className={`sticky top-0 z-40 border-b transition-[background-color,border-color,color] duration-500 ${
+        dark ? "on-ink bg-ink text-on-ink" : "bg-paper text-ink"
+      } ${scrolled ? (dark ? "border-line-on-ink" : "border-line") : "border-transparent"}`}
     >
       <nav aria-label="Main" className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
-        <Wordmark />
+        <Wordmark tone={dark ? "paper" : "ink"} />
 
         <ul className="hidden items-center gap-9 lg:flex">
           {navLinks.map((link) => {
@@ -65,8 +72,12 @@ export function Navbar() {
                 <a
                   href={link.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative py-2 text-[0.9375rem] transition-colors duration-200 hover:text-ink after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-gold-deep after:transition-transform after:duration-300 ${
-                    isActive ? "text-ink after:scale-x-100" : "text-muted after:scale-x-0 hover:after:scale-x-100"
+                  className={`relative py-2 text-[0.9375rem] transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:transition-transform after:duration-300 ${
+                    dark ? "after:bg-gold hover:text-on-ink" : "after:bg-gold-deep hover:text-ink"
+                  } ${
+                    isActive
+                      ? `${dark ? "text-on-ink" : "text-ink"} after:scale-x-100`
+                      : `${dark ? "text-on-ink-muted" : "text-muted"} after:scale-x-0 hover:after:scale-x-100`
                   }`}
                 >
                   {link.label}
@@ -81,12 +92,12 @@ export function Navbar() {
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className={buttonClasses("secondary", "md")}
+            className={buttonClasses(dark ? "ghost-on-ink" : "secondary", "md")}
           >
-            <WhatsAppIcon className="size-[1.125rem] text-whatsapp" />
+            <WhatsAppIcon className={`size-[1.125rem] ${dark ? "" : "text-whatsapp"}`} />
             WhatsApp
           </a>
-          <a href="#quote" className={buttonClasses("primary", "md")}>
+          <a href="#quote" className={buttonClasses(dark ? "gold" : "primary", "md")}>
             Get a Quote
           </a>
         </div>
@@ -94,7 +105,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={openMenu}
-          className="-mr-2 inline-flex size-11 items-center justify-center text-ink lg:hidden"
+          className="-mr-2 inline-flex size-11 items-center justify-center lg:hidden"
           aria-label="Open menu"
           aria-haspopup="dialog"
         >
