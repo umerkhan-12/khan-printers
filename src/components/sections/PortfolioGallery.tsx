@@ -59,8 +59,14 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
                   className="object-cover transition-transform duration-700 ease-(--ease-soft) group-hover:scale-[1.03]"
                 />
                 {item.sample && <SampleBadge />}
-                <span className="label absolute bottom-3 left-3 rounded-full bg-background/90 px-2.5 py-1.5 !text-[0.625rem] text-text-strong">
-                  {item.category}
+                {/* Editorial caption on a soft scrim, like a magazine plate. */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-surface-inverse/80 to-transparent"
+                />
+                <span className="absolute bottom-3 left-3 flex items-baseline gap-2 sm:bottom-4 sm:left-4 text-text-inverse">
+                  <span className="label !text-[0.625rem] text-accent">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-serif text-[1.0625rem] italic sm:text-[1.25rem]">{item.category}</span>
                 </span>
                 <span
                   aria-hidden="true"

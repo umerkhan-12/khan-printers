@@ -24,6 +24,6 @@ export const faqs = [
   },
   {
     q: "What are your hours?",
-    a: `We’re open ${site.hours}, and you can message us on WhatsApp any time.`,
+    a: `We’re open ${site.hours} (${site.closed.toLowerCase()}), and you can message us on WhatsApp any time.`,
   },
 ];

@@ -25,7 +25,7 @@ export function Location({ index }: { index: string }) {
             </li>
             <li className="flex items-center gap-3">
               <ClockIcon className="size-5 shrink-0 text-accent-text" />
-              Open {site.hours}
+              Open {site.hours} · {site.closed}
             </li>
           </ul>
 

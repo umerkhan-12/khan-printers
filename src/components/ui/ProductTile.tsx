@@ -59,13 +59,13 @@ export function ProductTile({ service, index, sizes, tone = "paper", className =
         </span>
       </div>
 
-      <div className="flex items-baseline gap-3 pt-4">
+      <div className="flex items-baseline gap-2.5 pt-3 sm:gap-3 sm:pt-4">
         <span className={`label ${t.number}`}>{String(index).padStart(2, "0")}</span>
-        <h3 className={`font-serif text-[1.5rem] leading-tight transition-colors duration-300 lg:text-[1.75rem] ${t.title}`}>
+        <h3 className={`font-serif text-[1.25rem] leading-tight transition-colors duration-300 sm:text-[1.5rem] lg:text-[1.75rem] ${t.title}`}>
           {service.short}
         </h3>
       </div>
-      <p className={`mt-1.5 line-clamp-2 pl-8 text-sm ${t.body}`}>{service.description}</p>
+      <p className={`mt-1.5 line-clamp-2 pl-8 text-sm max-sm:hidden ${t.body}`}>{service.description}</p>
     </Link>
   );
 }

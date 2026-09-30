@@ -47,7 +47,7 @@ export const viewport: Viewport = {
   themeColor: "#f7f5f0",
 };
 
-/** Only confirmed facts. Add address/openingHours once the client confirms them. */
+/** Only confirmed facts. Add the street address once the client confirms it. */
 const localBusiness = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -63,6 +63,12 @@ const localBusiness = {
     addressLocality: site.location.city,
     addressCountry: site.location.countryCode,
     ...(site.location.street ? { streetAddress: site.location.street } : {}),
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "09:00",
+    closes: "21:00",
   },
   areaServed: { "@type": "City", name: site.location.city },
   hasMap: site.location.mapUrl,

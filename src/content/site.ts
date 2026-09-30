@@ -28,14 +28,15 @@ export const site = {
     street: null as string | null,
     /** Client's Google Maps share link (opens the exact business listing). */
     mapUrl: "https://share.google/8DY42naEGRtLBWf99",
-    /**
-     * Google Maps embed URL for the live map ("Share → Embed a map" → the src="…" value).
-     * Leave null until supplied — never guess, several businesses share this name.
-     */
-    mapEmbedUrl: null as string | null,
+    /** Google Maps embed URL supplied by the client ("Share → Embed a map" → src). */
+    mapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.2465936073736!2d67.01122769999999!3d24.8554261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e0f835cd10f%3A0x556214787e929de5!2sMowloo%20Juma%20Hospital!5e0!3m2!1sen!2s!4v1790792095879!5m2!1sen!2s" as
+        | string
+        | null,
   },
-  /** Days not yet confirmed — do not add to structured data until they are. */
-  hours: "9 AM – 9 PM",
+  /** Client-confirmed: Monday–Saturday 9 AM – 9 PM, Sunday closed. */
+  hours: "Mon – Sat, 9 AM – 9 PM",
+  closed: "Sunday closed",
   fulfilment: "Pickup or delivery",
 } as const;
 

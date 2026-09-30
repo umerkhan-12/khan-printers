@@ -127,7 +127,7 @@ export function Navbar() {
   const dark = overHero && !productsOpen;
 
   const linkClass = (isActive: boolean) =>
-    `relative py-2 text-[0.9375rem] transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:transition-transform after:duration-300 ${
+    `relative py-2 text-[0.9375rem] whitespace-nowrap transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:transition-transform after:duration-300 ${
       dark ? "after:bg-accent hover:text-text-inverse" : "after:bg-accent-text hover:text-text-strong"
     } ${
       isActive
@@ -146,7 +146,7 @@ export function Navbar() {
       <nav aria-label="Main" className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
         <Wordmark tone={dark ? "paper" : "ink"} />
 
-        <ul className="hidden items-center gap-9 lg:flex">
+        <ul className="hidden items-center gap-6 lg:flex xl:gap-9">
           <li onMouseEnter={hoverOpen}>
             <button
               type="button"

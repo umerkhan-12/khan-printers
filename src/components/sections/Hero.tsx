@@ -14,6 +14,7 @@ import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
 const heroImage = media.weddingCards;
+const insetImage = media.cardsGoldGeometric;
 
 /** Cycles in the headline. The first word is what search engines and screen readers get. */
 const headlineWords = ["brand.", "mehndi.", "nikah.", "walima.", "shop.", "big day."];
@@ -58,30 +59,28 @@ export function Hero() {
               </Line>
             </h1>
 
-            <div className="mt-8 grid gap-8 lg:mt-12 lg:grid-cols-[minmax(0,22rem)_auto] lg:items-end lg:gap-10">
-              <p className="hero-fade max-w-sm text-lead text-text-inverse-muted" style={delay(650)}>
-                Business cards, stickers, brochures, wedding cards, banners and branded packaging — professionally printed
-                in {site.location.city}.
-              </p>
+            <p className="hero-fade mt-8 max-w-md text-lead text-text-inverse-muted lg:mt-10" style={delay(650)}>
+              Business cards, stickers, brochures, wedding cards, banners and branded packaging — professionally printed in{" "}
+              {site.location.city}.
+            </p>
 
-              <div className="hero-fade" style={delay(780)}>
-                <div id="hero-actions" className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
-                  <ButtonLink href="#quote" variant="gold" className="px-4 sm:px-7">
-                    Get a Quote
-                  </ButtonLink>
-                  <ButtonLink href={whatsappUrl()} external variant="ghost-on-ink" className="px-4 sm:px-7">
-                    <WhatsAppIcon />
-                    WhatsApp
-                  </ButtonLink>
-                </div>
-                <a
-                  href="#work"
-                  className="group mt-4 hidden min-h-11 items-center gap-2 text-[0.9375rem] text-text-inverse-muted transition-colors hover:text-accent sm:inline-flex"
-                >
-                  View our work
-                  <ArrowRightIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </a>
+            <div className="hero-fade mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8" style={delay(780)}>
+              <div id="hero-actions" className="grid grid-cols-2 gap-3 sm:flex">
+                <ButtonLink href="#quote" variant="gold" className="px-4 sm:px-8">
+                  Get a Quote
+                </ButtonLink>
+                <ButtonLink href={whatsappUrl()} external variant="ghost-on-ink" className="px-4 sm:px-7">
+                  <WhatsAppIcon />
+                  WhatsApp
+                </ButtonLink>
               </div>
+              <a
+                href="#work"
+                className="group hidden min-h-11 items-center gap-2 text-[0.9375rem] text-text-inverse-muted transition-colors hover:text-accent sm:inline-flex"
+              >
+                View our work
+                <ArrowRightIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </a>
             </div>
           </div>
 
@@ -101,7 +100,7 @@ function HeroFigure() {
     <figure className="relative mx-auto w-full max-w-xl lg:max-w-none">
       <div className="relative">
         <CropMarks className="hero-fade" style={delay(900)} />
-        <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-surface-inverse-raised lg:aspect-auto lg:h-[clamp(24rem,58svh,40rem)]">
+        <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-surface-inverse-raised lg:aspect-auto lg:h-[clamp(26rem,62svh,42rem)]">
           <Image
             src={heroImage.src}
             alt={heroImage.alt}
@@ -117,15 +116,29 @@ function HeroFigure() {
           className="hero-fade absolute -bottom-12 -left-8 hidden rounded-full shadow-[0_12px_32px_-8px_rgb(0_0_0/0.5)] ring-4 ring-surface-inverse lg:block"
           style={delay(1100)}
         >
-          <LogoBadge className="size-36" sizes="144px" />
+          <LogoBadge className="size-32" sizes="128px" />
+        </div>
+        {/* Second print, pinned over the first like a proof on a studio table. */}
+        <div
+          className="hero-fade absolute -right-4 -bottom-14 hidden aspect-[4/3] w-[44%] overflow-hidden rounded-img shadow-[0_24px_48px_-16px_rgb(0_0_0/0.6)] ring-4 ring-surface-inverse lg:block xl:-right-8"
+          style={delay(1150)}
+        >
+          <Image
+            src={insetImage.src}
+            alt={insetImage.alt}
+            fill
+            placeholder="blur"
+            sizes="220px"
+            className="object-cover"
+          />
         </div>
       </div>
 
       <figcaption
-        className="hero-fade label mt-4 flex justify-end text-text-inverse-muted sm:mt-10"
+        className="hero-fade label mt-4 text-right text-text-inverse-muted sm:mt-6 lg:mt-20"
         style={delay(1000)}
       >
-        Fig. 01 — Wedding card suite
+        Fig. 01 — Wedding cards<span className="hidden lg:inline"> &amp; visiting cards</span>
       </figcaption>
     </figure>
   );
