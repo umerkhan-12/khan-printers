@@ -6,7 +6,7 @@ import type { CSSProperties } from "react";
  * gutter is too narrow.
  */
 export function CropMarks({ className = "", style }: { className?: string; style?: CSSProperties }) {
-  const mark = "pointer-events-none absolute bg-on-ink-muted/60";
+  const mark = "pointer-events-none absolute bg-text-inverse-muted/60";
   return (
     <div aria-hidden="true" className={`hidden sm:block ${className}`} style={style}>
       <span className={`${mark} -top-px -left-7 h-px w-4`} />

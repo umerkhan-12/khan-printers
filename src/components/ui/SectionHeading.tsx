@@ -15,16 +15,16 @@ export function SectionHeading({ index, eyebrow, title, id, children, tone = "pa
   const onInk = tone === "ink";
   return (
     <header className={`max-w-3xl ${className}`}>
-      <p className={`label flex items-center gap-3 ${onInk ? "text-gold" : "text-gold-deep"}`}>
+      <p className={`label flex items-center gap-3 ${onInk ? "text-accent" : "text-accent-text"}`}>
         <span>{index}</span>
-        <span aria-hidden="true" className={`h-px w-8 ${onInk ? "bg-gold/60" : "bg-gold-deep/50"}`} />
+        <span aria-hidden="true" className={`h-px w-8 ${onInk ? "bg-accent/60" : "bg-accent-text/50"}`} />
         <span>{eyebrow}</span>
       </p>
-      <h2 id={id} className={`mt-5 font-serif text-h2 text-balance ${onInk ? "text-on-ink" : "text-ink"}`}>
+      <h2 id={id} className={`mt-5 font-serif text-h2 text-balance ${onInk ? "text-text-inverse" : "text-text-strong"}`}>
         {title}
       </h2>
       {children && (
-        <div className={`mt-5 max-w-xl text-lead ${onInk ? "text-on-ink-muted" : "text-muted"}`}>{children}</div>
+        <div className={`mt-5 max-w-xl text-lead ${onInk ? "text-text-inverse-muted" : "text-text-muted"}`}>{children}</div>
       )}
     </header>
   );

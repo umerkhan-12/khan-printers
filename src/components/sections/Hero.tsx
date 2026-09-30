@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 
 import { ButtonLink } from "@/components/ui/Button";
@@ -6,7 +7,7 @@ import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { SampleBadge } from "@/components/ui/Photo";
 import { CropMarks, RegistrationMark } from "@/components/ui/PrintMarks";
 import { media } from "@/content/media";
-import { services } from "@/content/services";
+import { serviceHref, services } from "@/content/services";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 
@@ -21,16 +22,16 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="on-ink relative flex flex-col overflow-hidden bg-ink text-on-ink lg:min-h-[calc(100svh-4.5rem)]"
+      className="on-ink relative flex flex-col overflow-hidden bg-surface-inverse text-text-inverse lg:min-h-[calc(100svh-4.5rem)]"
     >
       <div className="container-page flex flex-1 flex-col">
         {/* Meta row — like the slug line on a printer's proof */}
         <div
-          className="hero-fade label flex items-center justify-between gap-6 border-b border-line-on-ink py-4 text-on-ink-muted"
+          className="hero-fade label flex items-center justify-between gap-6 border-b border-border-inverse py-4 text-text-inverse-muted"
           style={delay(100)}
         >
           <span className="flex items-center gap-3">
-            <RegistrationMark className="size-3.5 text-gold" />
+            <RegistrationMark className="size-3.5 text-accent" />
             Printing studio — {site.location.city}
           </span>
           <span className="hidden lg:inline">Cards · Stickers · Packaging · Large format</span>
@@ -39,18 +40,18 @@ export function Hero() {
 
         <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-12 lg:gap-12 lg:py-10">
           <div className="lg:col-span-7">
-            <h1 id="hero-title" className="font-serif text-hero text-on-ink">
+            <h1 id="hero-title" className="font-serif text-hero text-text-inverse">
               <Line d={200}>Premium</Line>
               <Line d={320}>
-                printing, <em className="text-gold">made</em>
+                printing, <em className="text-accent">made</em>
               </Line>
               <Line d={440}>
-                <em className="text-gold">for your brand.</em>
+                <em className="text-accent">for your brand.</em>
               </Line>
             </h1>
 
             <div className="mt-8 grid gap-8 lg:mt-12 lg:grid-cols-[minmax(0,22rem)_auto] lg:items-end lg:gap-10">
-              <p className="hero-fade max-w-sm text-lead text-on-ink-muted" style={delay(650)}>
+              <p className="hero-fade max-w-sm text-lead text-text-inverse-muted" style={delay(650)}>
                 Business cards, stickers, brochures, wedding cards, banners and branded packaging — professionally printed
                 in {site.location.city}.
               </p>
@@ -67,7 +68,7 @@ export function Hero() {
                 </div>
                 <a
                   href="#work"
-                  className="group mt-4 hidden min-h-11 items-center gap-2 text-[0.9375rem] text-on-ink-muted transition-colors hover:text-gold sm:inline-flex"
+                  className="group mt-4 hidden min-h-11 items-center gap-2 text-[0.9375rem] text-text-inverse-muted transition-colors hover:text-accent sm:inline-flex"
                 >
                   View our work
                   <ArrowRightIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -82,7 +83,7 @@ export function Hero() {
         </div>
       </div>
 
-      <ServicesMarquee />
+      <ServiceIndex />
     </section>
   );
 }
@@ -92,7 +93,7 @@ function HeroFigure() {
     <figure className="relative mx-auto w-full max-w-xl lg:max-w-none">
       <div className="relative">
         <CropMarks className="hero-fade" style={delay(900)} />
-        <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-ink-soft lg:aspect-auto lg:h-[clamp(24rem,58svh,40rem)]">
+        <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-surface-inverse-raised lg:aspect-auto lg:h-[clamp(24rem,58svh,40rem)]">
           <Image
             src={heroImage.src}
             alt={heroImage.alt}
@@ -108,7 +109,7 @@ function HeroFigure() {
       </div>
 
       <figcaption
-        className="hero-fade label mt-4 flex justify-end text-on-ink-muted sm:mt-10"
+        className="hero-fade label mt-4 flex justify-end text-text-inverse-muted sm:mt-10"
         style={delay(1000)}
       >
         Fig. 01 — Invitation suite
@@ -126,12 +127,12 @@ function Line({ d, children }: { d: number; children: ReactNode }) {
   );
 }
 
-/** Slowly rotating circular seal. Decorative only. */
+/** Static circular seal (no looping motion, per the motion rules). Decorative only. */
 function StudioSeal({ className = "", style }: { className?: string; style?: CSSProperties }) {
   return (
     <div aria-hidden="true" className={className} style={style}>
-      <div className="relative size-full rounded-full bg-ink">
-        <svg viewBox="0 0 120 120" className="hero-spin absolute inset-0 size-full text-gold">
+      <div className="relative size-full rounded-full bg-surface-inverse">
+        <svg viewBox="0 0 120 120" className="absolute inset-0 size-full text-accent">
           <defs>
             <path id="seal-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
           </defs>
@@ -142,37 +143,32 @@ function StudioSeal({ className = "", style }: { className?: string; style?: CSS
             </textPath>
           </text>
         </svg>
-        <RegistrationMark className="absolute inset-0 m-auto size-7 text-on-ink" />
+        <RegistrationMark className="absolute inset-0 m-auto size-7 text-text-inverse" />
       </div>
     </div>
   );
 }
 
-function ServicesMarquee() {
-  const items = services.map((s) => s.short);
-  const row = (
-    <ul className="flex shrink-0 items-center">
-      {items.map((item) => (
-        <li key={item} className="flex items-center">
-          <span className="px-6 font-serif text-[1.75rem] whitespace-nowrap text-on-ink italic lg:px-8 lg:text-[2.25rem]">
-            {item}
-          </span>
-          <span className="text-sm text-gold">✦</span>
-        </li>
-      ))}
-    </ul>
-  );
-
+/**
+ * Static index of every product — scannable in one glance on desktop,
+ * a thumb-scrollable row on mobile. Each item links to its product page.
+ */
+function ServiceIndex() {
   return (
-    <div className="hero-fade border-t border-line-on-ink" style={delay(1200)}>
-      <p className="sr-only">We print: {items.join(", ")}.</p>
-      <div aria-hidden="true" className="group flex overflow-hidden py-5 lg:py-6">
-        <div className="hero-marquee flex group-hover:[animation-play-state:paused]">
-          {row}
-          {row}
-        </div>
-      </div>
-    </div>
+    <nav aria-label="What we print" className="hero-fade border-t border-border-inverse" style={delay(1200)}>
+      <ul className="container-page flex snap-x gap-x-8 overflow-x-auto py-4 [scrollbar-width:none] lg:justify-between lg:gap-x-4 lg:py-5 [&::-webkit-scrollbar]:hidden">
+        {services.map((s) => (
+          <li key={s.slug} className="shrink-0 snap-start">
+            <Link
+              href={serviceHref(s.slug)}
+              className="inline-flex min-h-11 items-center font-serif text-[1.375rem] whitespace-nowrap text-text-inverse italic transition-colors hover:text-accent lg:text-[1.5rem]"
+            >
+              {s.short}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
 

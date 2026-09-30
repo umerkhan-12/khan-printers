@@ -24,10 +24,16 @@ npm run lint
 | Images and alt text | `src/content/media.ts` |
 | Gallery order and layout | `src/content/portfolio.ts` |
 | WhatsApp message wording | `src/lib/whatsapp.ts` |
-| Design tokens (colours, type, spacing) | `src/app/globals.css` |
+| Design tokens (colours, type, spacing) | `src/app/globals.css` — names match the Figma variables |
 | Quote email (API) | `src/app/api/quote/route.ts` |
 
 Only confirmed business facts go in `site.ts`. Never add reviews, statistics or claims that the client hasn't confirmed.
+
+## Design source (Figma)
+
+https://www.figma.com/design/mxA6mEW6h2mBvIjZPsZQDj — exploration boards (colour, type, concepts, each scored), wireframes (1440 / 390), design-system foundations (62 variables, 22 text styles) and components (Button, Input, Product tile, Portfolio card, Navigation, CTA).
+
+Colour tokens are semantic (`background`, `surface`, `surface-inverse`, `primary`, `accent`, `accent-text`, `text`, `text-strong`, `text-muted`, `border`, `focus`, `success`, `error`…). Use them — never raw hex values — in components. Navy and gold are taken from the Khan Printers logo.
 
 ## Replacing sample images with real photos
 
@@ -69,7 +75,8 @@ Import the repo in Vercel. Set `NEXT_PUBLIC_SITE_URL` to the final domain, which
 
 ## Pending from client
 
-- Official logo (SVG preferred). A text wordmark is used until then (`src/components/layout/Wordmark.tsx`).
+- Official logo **file** (SVG or high-res PNG). The logo was shared as a chat image only; a text wordmark is used until the file is in the repo (`src/components/layout/Wordmark.tsx`).
+- Confirm whether **Envelopes** and **Packaging** are services (they appear on the logo but not in the confirmed list).
 - Original project photos for every service. Business cards, books/registers and custom printing currently have no image.
 - Full street address, then add `site.location.street`.
 - Which days the 9 AM – 9 PM hours apply to, before they're added to structured data.

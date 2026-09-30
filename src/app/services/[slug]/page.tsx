@@ -94,20 +94,20 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         title={`Get a quote for ${service.short.toLowerCase()}.`}
       />
 
-      <section aria-labelledby="more-title" className="on-ink section-y bg-ink text-on-ink">
+      <section aria-labelledby="more-title" className="on-ink section-y bg-surface-inverse text-text-inverse">
         <div className="container-page">
           <div className="flex items-end justify-between gap-6">
-            <h2 id="more-title" className="font-serif text-h2 text-on-ink">
+            <h2 id="more-title" className="font-serif text-h2 text-text-inverse">
               More products
             </h2>
-            <Link href="/#products" className="label shrink-0 pb-2 text-gold hover:text-on-ink">
+            <Link href="/#products" className="label shrink-0 pb-2 text-accent hover:text-text-inverse">
               View all
             </Link>
           </div>
           <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-6">
             {others.map((s) => (
               <li key={s.slug}>
-                <ProductTile service={s} index={services.indexOf(s) + 1} sizes="(min-width: 1024px) 25vw, 50vw" />
+                <ProductTile service={s} tone="ink" index={services.indexOf(s) + 1} sizes="(min-width: 1024px) 25vw, 50vw" />
               </li>
             ))}
           </ul>
@@ -121,40 +121,40 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
 function ServiceHero({ service, number }: { service: Service; number: number }) {
   return (
-    <section id="top" aria-labelledby="service-title" className="on-ink bg-ink text-on-ink">
+    <section id="top" aria-labelledby="service-title" className="on-ink bg-surface-inverse text-text-inverse">
       <div className="container-page">
-        <nav aria-label="Breadcrumb" className="label flex items-center gap-3 border-b border-line-on-ink py-4 text-on-ink-muted">
-          <RegistrationMark className="size-3.5 text-gold" />
-          <Link href="/" className="hover:text-gold">
+        <nav aria-label="Breadcrumb" className="label flex items-center gap-3 border-b border-border-inverse py-4 text-text-inverse-muted">
+          <RegistrationMark className="size-3.5 text-accent" />
+          <Link href="/" className="hover:text-accent">
             Home
           </Link>
           <span aria-hidden="true">/</span>
-          <Link href="/#products" className="hover:text-gold">
+          <Link href="/#products" className="hover:text-accent">
             Products
           </Link>
           <span aria-hidden="true">/</span>
-          <span aria-current="page" className="truncate text-on-ink">
+          <span aria-current="page" className="truncate text-text-inverse">
             {service.short}
           </span>
         </nav>
 
         <div className="grid items-center gap-12 py-12 lg:grid-cols-12 lg:gap-14 lg:py-20">
           <div className="lg:col-span-6">
-            <p className="hero-fade label text-gold" style={{ ["--d" as string]: "100ms" }}>
+            <p className="hero-fade label text-accent" style={{ ["--d" as string]: "100ms" }}>
               Product {String(number).padStart(2, "0")} — {site.location.city}
             </p>
-            <h1 id="service-title" className="mt-5 font-serif text-display text-balance text-on-ink">
+            <h1 id="service-title" className="mt-5 font-serif text-display text-balance text-text-inverse">
               <span className="hero-line">
                 <span style={{ ["--d" as string]: "200ms" }}>{service.title}</span>
               </span>
             </h1>
-            <p className="hero-fade mt-6 max-w-md text-lead text-on-ink-muted" style={{ ["--d" as string]: "450ms" }}>
+            <p className="hero-fade mt-6 max-w-md text-lead text-text-inverse-muted" style={{ ["--d" as string]: "450ms" }}>
               {service.description}
             </p>
 
             <ul className="hero-fade mt-7 flex flex-wrap gap-2" style={{ ["--d" as string]: "550ms" }} aria-label="Perfect for">
               {service.perfectFor.map((p) => (
-                <li key={p} className="rounded-full border border-line-on-ink px-3.5 py-1.5 text-sm text-on-ink-muted">
+                <li key={p} className="rounded-full border border-border-inverse px-3.5 py-1.5 text-sm text-text-inverse-muted">
                   {p}
                 </li>
               ))}
@@ -178,7 +178,7 @@ function ServiceHero({ service, number }: { service: Service; number: number }) 
           <div className="lg:col-span-6">
             <div className="relative">
               <CropMarks className="hero-fade" style={{ ["--d" as string]: "900ms" }} />
-              <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-ink-soft">
+              <div className="hero-reveal relative aspect-[4/3] overflow-hidden rounded-img bg-surface-inverse-raised">
                 {service.image ? (
                   <>
                     <Image
@@ -193,11 +193,11 @@ function ServiceHero({ service, number }: { service: Service; number: number }) 
                     {service.image.sample && <SampleBadge />}
                   </>
                 ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 border border-line-on-ink">
-                    <span aria-hidden="true" className="font-serif text-[8rem] leading-none text-on-ink/10 italic">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 border border-border-inverse">
+                    <span aria-hidden="true" className="font-serif text-[8rem] leading-none text-text-inverse/10 italic">
                       {String(number).padStart(2, "0")}
                     </span>
-                    <span className="label text-on-ink-muted">Photos of our {service.short.toLowerCase()} coming soon</span>
+                    <span className="label text-text-inverse-muted">Photos of our {service.short.toLowerCase()} coming soon</span>
                   </div>
                 )}
               </div>
@@ -226,13 +226,13 @@ function WhatToSend({ service }: { service: Service }) {
             <p>Share these on WhatsApp or in the form below. Don’t have everything? Send what you have — we’ll help with the rest.</p>
           </SectionHeading>
         </Reveal>
-        <ol className="border-t border-line lg:col-span-7">
+        <ol className="border-t border-border lg:col-span-7">
           {items.map((item, i) => (
-            <Reveal as="li" key={item.title} delay={i * 60} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-6">
-              <span className="font-serif text-[1.75rem] leading-none text-gold-deep">{String(i + 1).padStart(2, "0")}</span>
+            <Reveal as="li" key={item.title} delay={i * 60} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-6">
+              <span className="font-serif text-[1.75rem] leading-none text-accent-text">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h3 className="text-lg font-medium text-ink">{item.title}</h3>
-                <p className="mt-1 text-muted">{item.text}</p>
+                <h3 className="text-lg font-medium text-text-strong">{item.title}</h3>
+                <p className="mt-1 text-text-muted">{item.text}</p>
               </div>
             </Reveal>
           ))}

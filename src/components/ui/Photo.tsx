@@ -14,7 +14,7 @@ type Props = Omit<ImageProps, "src" | "alt"> & {
  */
 export function Photo({ media, frameClassName = "", className = "", ...imageProps }: Props) {
   return (
-    <div className={`relative overflow-hidden rounded-img bg-paper-deep ${frameClassName}`}>
+    <div className={`relative overflow-hidden rounded-img bg-surface-muted ${frameClassName}`}>
       <Image
         src={media.src}
         alt={media.alt}
@@ -29,7 +29,7 @@ export function Photo({ media, frameClassName = "", className = "", ...imageProp
 
 export function SampleBadge() {
   return (
-    <span className="label pointer-events-none absolute top-3 left-3 rounded-full bg-paper/90 px-2.5 py-1.5 !text-[0.625rem] text-ink">
+    <span className="label pointer-events-none absolute top-3 left-3 rounded-full bg-background/90 px-2.5 py-1.5 !text-[0.625rem] text-text-strong">
       Sample image
     </span>
   );

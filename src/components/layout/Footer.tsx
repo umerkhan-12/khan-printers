@@ -20,22 +20,22 @@ export function Footer() {
   ];
 
   return (
-    <footer id="site-footer" className="on-ink bg-ink text-on-ink">
+    <footer id="site-footer" className="on-ink bg-surface-inverse text-text-inverse">
       <div className="container-page grid gap-12 py-16 md:grid-cols-12 lg:py-20">
         <div className="md:col-span-5">
           <Wordmark tone="paper" />
-          <p className="mt-5 max-w-xs text-on-ink-muted">{site.tagline}</p>
-          <p className="mt-2 text-sm text-on-ink-muted">
+          <p className="mt-5 max-w-xs text-text-inverse-muted">{site.tagline}</p>
+          <p className="mt-2 text-sm text-text-inverse-muted">
             {site.location.city}, {site.location.country}
           </p>
         </div>
 
         <nav aria-label="Footer" className="md:col-span-3">
-          <h2 className="label text-gold">Explore</h2>
+          <h2 className="label text-accent">Explore</h2>
           <ul className="mt-5 space-y-1">
             {footerNav.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="inline-flex min-h-10 items-center transition-colors hover:text-gold">
+                <a href={item.href} className="inline-flex min-h-10 items-center transition-colors hover:text-accent">
                   {item.label}
                 </a>
               </li>
@@ -44,16 +44,16 @@ export function Footer() {
         </nav>
 
         <div className="md:col-span-4">
-          <h2 className="label text-gold">Contact</h2>
+          <h2 className="label text-accent">Contact</h2>
           <ul className="mt-5 space-y-1">
             {contacts.map(({ href, label, value, Icon, external }) => (
               <li key={label}>
                 <a
                   href={href}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="group inline-flex min-h-10 items-center gap-3 transition-colors hover:text-gold"
+                  className="group inline-flex min-h-10 items-center gap-3 transition-colors hover:text-accent"
                 >
-                  <Icon className="size-4 shrink-0 text-on-ink-muted group-hover:text-gold" />
+                  <Icon className="size-4 shrink-0 text-text-inverse-muted group-hover:text-accent" />
                   <span className="sr-only">{label}: </span>
                   <span className="wrap-anywhere">{value}</span>
                 </a>
@@ -63,8 +63,8 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-line-on-ink">
-        <div className="container-page flex flex-col gap-2 py-6 text-sm text-on-ink-muted sm:flex-row sm:justify-between">
+      <div className="border-t border-border-inverse">
+        <div className="container-page flex flex-col gap-2 py-6 text-sm text-text-inverse-muted sm:flex-row sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>

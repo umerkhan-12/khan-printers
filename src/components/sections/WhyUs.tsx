@@ -23,11 +23,11 @@ export function WhyUs() {
           </div>
         </Reveal>
 
-        <ul className="border-t border-line lg:col-span-7">
+        <ul className="border-t border-border lg:col-span-7">
           {reasons.map((reason, i) => (
-            <Reveal as="li" key={reason.title} delay={i * 60} className="grid gap-2 border-b border-line py-7 sm:grid-cols-[14rem_1fr] sm:gap-8">
-              <h3 className="font-serif text-[1.625rem] leading-tight text-ink">{reason.title}</h3>
-              <p className="text-muted sm:pt-1">{reason.text}</p>
+            <Reveal as="li" key={reason.title} delay={i * 60} className="grid gap-2 border-b border-border py-7 sm:grid-cols-[14rem_1fr] sm:gap-8">
+              <h3 className="font-serif text-[1.625rem] leading-tight text-text-strong">{reason.title}</h3>
+              <p className="text-text-muted sm:pt-1">{reason.text}</p>
             </Reveal>
           ))}
         </ul>

@@ -18,17 +18,17 @@ export function Faq({ index }: { index: string }) {
           </SectionHeading>
         </Reveal>
 
-        <div className="border-t border-line lg:col-span-7">
+        <div className="border-t border-border lg:col-span-7">
           {faqs.map((f) => (
-            <details key={f.q} className="group border-b border-line">
-              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-[1.375rem] leading-snug text-ink transition-colors hover:text-gold-deep lg:text-[1.625rem] [&::-webkit-details-marker]:hidden">
+            <details key={f.q} className="group border-b border-border">
+              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-[1.375rem] leading-snug text-text-strong transition-colors hover:text-accent-text lg:text-[1.625rem] [&::-webkit-details-marker]:hidden">
                 {f.q}
                 <span
                   aria-hidden="true"
                   className="relative size-4 shrink-0 before:absolute before:inset-x-0 before:top-1/2 before:h-px before:bg-current after:absolute after:inset-y-0 after:left-1/2 after:w-px after:bg-current after:transition-transform after:duration-300 group-open:after:scale-y-0"
                 />
               </summary>
-              <p className="max-w-2xl pb-6 text-muted">{f.a}</p>
+              <p className="max-w-2xl pb-6 text-text-muted">{f.a}</p>
             </details>
           ))}
         </div>

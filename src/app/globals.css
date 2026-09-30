@@ -2,26 +2,43 @@
 
 /* ─────────────────────────────────────────────────────────────
    Design tokens — "The Print Studio"
-   Paper + ink + a single foil-gold accent. Contrast-checked (WCAG AA).
+   Ivory paper + the logo's deep navy + its foil gold.
+   Names match the Figma variables (Color collection) 1:1.
+   Contrast-checked (WCAG AA) — ratios noted inline.
    ───────────────────────────────────────────────────────────── */
 @theme {
   --color-*: initial;
   --color-white: #ffffff;
-  --color-paper: #f7f5f0;
-  --color-paper-deep: #efebe2;
-  --color-ink: #111111;
-  --color-ink-soft: #1c1c1c;
-  --color-text: #242424;
-  --color-muted: #6b675f; /* 5.2:1 on paper */
-  --color-on-ink: #f7f5f0;
-  --color-on-ink-muted: #a8a398; /* 7.5:1 on ink */
-  --color-gold: #c8a96b; /* accents on ink; decorative only on paper */
-  --color-gold-deep: #7a5e2e; /* gold text on paper, 5.6:1 */
-  --color-whatsapp: #1f7a4d; /* white text 5.3:1 */
-  --color-whatsapp-dark: #17603c;
-  --color-error: #b3261e;
-  --color-line: rgb(17 17 17 / 0.12);
-  --color-line-on-ink: rgb(247 245 240 / 0.14);
+
+  /* Surfaces */
+  --color-background: #f7f5f0; /* warm ivory paper */
+  --color-surface: #ffffff; /* raised: form card, inputs */
+  --color-surface-muted: #efebe2; /* alternate section, image placeholders */
+  --color-surface-inverse: #111a3a; /* logo navy: hero, product hero, footer */
+  --color-surface-inverse-raised: #1a2550; /* tiles and panels on navy */
+
+  /* Brand */
+  --color-primary: #111a3a; /* primary button on paper */
+  --color-primary-hover: #1a2550;
+  --color-accent: #c49a45; /* logo gold — CTAs on navy (6.6:1); decorative only on paper */
+  --color-accent-hover: #d4ae62;
+  --color-accent-text: #7a5a1e; /* gold text on paper (5.8:1) */
+
+  /* Text */
+  --color-text: #242424; /* body on paper (14.3:1) */
+  --color-text-strong: #111a3a; /* headings on paper, matches logo "KHAN" */
+  --color-text-muted: #6b675f; /* secondary on paper (5.2:1) */
+  --color-text-inverse: #f7f5f0; /* on navy (15.8:1) */
+  --color-text-inverse-muted: #a3a8ba; /* secondary on navy (7.3:1) */
+
+  /* Lines & states */
+  --color-border: rgb(17 26 58 / 0.12);
+  --color-border-inverse: rgb(247 245 240 / 0.14);
+  --color-focus: #7a5a1e;
+  --color-focus-inverse: #c49a45;
+  --color-success: #1f7a4d; /* WhatsApp only — white text 5.3:1 */
+  --color-success-hover: #17603c;
+  --color-error: #b3261e; /* 6.0:1 on paper */
 
   --text-display: clamp(2.75rem, 1.6rem + 4.4vw, 5.5rem);
   --text-display--line-height: 0.95;
@@ -90,7 +107,7 @@
   }
 
   body {
-    background: var(--color-paper);
+    background: var(--color-background);
     color: var(--color-text);
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -100,21 +117,21 @@
   }
 
   ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
+    background: var(--color-accent);
+    color: var(--color-text-strong);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold-deep);
+    outline: 2px solid var(--color-focus);
     outline-offset: 3px;
   }
 
   .on-ink :focus-visible {
-    outline-color: var(--color-gold);
+    outline-color: var(--color-focus-inverse);
   }
 
   dialog::backdrop {
-    background: rgb(17 17 17 / 0.92);
+    background: rgb(17 26 58 / 0.94);
   }
 }
 
@@ -164,13 +181,6 @@
     animation: hero-zoom 2.2s var(--ease-soft) 300ms both;
   }
 
-  .hero-spin {
-    animation: hero-spin 28s linear infinite;
-  }
-
-  .hero-marquee {
-    animation: hero-marquee 45s linear infinite;
-  }
 }
 
 @keyframes hero-rise {
@@ -201,24 +211,7 @@
   }
 }
 
-@keyframes hero-spin {
-  to {
-    rotate: 360deg;
-  }
-}
-
-@keyframes hero-marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .hero-marquee,
-  .hero-spin {
-    animation: none;
-  }
-
   html {
     scroll-behavior: auto;
   }

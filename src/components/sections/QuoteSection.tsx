@@ -41,7 +41,7 @@ export function QuoteSection({ emailEnabled, index, initialService, title = "Tel
         </div>
 
         <div className="min-w-0 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
-          <div className="rounded-img bg-white p-6 shadow-[0_1px_0_rgb(17_17_17/0.04),0_24px_48px_-24px_rgb(17_17_17/0.18)] sm:p-10">
+          <div className="rounded-img bg-surface p-6 shadow-[0_1px_0_rgb(17_26_58/0.04),0_24px_48px_-24px_rgb(17_26_58/0.18)] sm:p-10">
             <QuoteForm emailEnabled={emailEnabled} initialService={initialService} />
             <Suspense fallback={null}>
               <ServiceFromUrl />
@@ -51,19 +51,19 @@ export function QuoteSection({ emailEnabled, index, initialService, title = "Tel
 
         <div id="contact" className="min-w-0 scroll-mt-24 lg:col-span-5">
           <h3 className="sr-only">Contact details</h3>
-          <dl className="border-t border-line">
+          <dl className="border-t border-border">
             {details.map(({ Icon, label, value, href, external }) => (
-              <div key={label} className="flex items-center gap-4 border-b border-line py-4">
-                <dt className="flex w-24 shrink-0 sm:w-28 items-center gap-3 text-sm text-muted">
-                  <Icon className="size-4 text-gold-deep" />
+              <div key={label} className="flex items-center gap-4 border-b border-border py-4">
+                <dt className="flex w-24 shrink-0 sm:w-28 items-center gap-3 text-sm text-text-muted">
+                  <Icon className="size-4 text-accent-text" />
                   {label}
                 </dt>
-                <dd className="min-w-0 wrap-anywhere text-ink">
+                <dd className="min-w-0 wrap-anywhere text-text-strong">
                   {href ? (
                     <a
                       href={href}
                       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="underline decoration-line underline-offset-4 transition-colors hover:decoration-gold-deep"
+                      className="underline decoration-border underline-offset-4 transition-colors hover:decoration-accent-text"
                     >
                       {value}
                     </a>

@@ -32,7 +32,7 @@ export function MobileCtaBar() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 ease-(--ease-soft) md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 ease-(--ease-soft) md:hidden ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
       inert={!visible}

@@ -47,7 +47,7 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
               <button
                 type="button"
                 onClick={() => setOpenIndex(i)}
-                className="group absolute inset-0 overflow-hidden rounded-img bg-paper-deep text-left"
+                className="group absolute inset-0 overflow-hidden rounded-img bg-surface-muted text-left"
                 aria-label={`View larger: ${item.category}`}
               >
                 <Image
@@ -59,12 +59,12 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
                   className="object-cover transition-transform duration-700 ease-(--ease-soft) group-hover:scale-[1.03]"
                 />
                 {item.sample && <SampleBadge />}
-                <span className="label absolute bottom-3 left-3 rounded-full bg-paper/90 px-2.5 py-1.5 !text-[0.625rem] text-ink">
+                <span className="label absolute bottom-3 left-3 rounded-full bg-background/90 px-2.5 py-1.5 !text-[0.625rem] text-text-strong">
                   {item.category}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-paper/90 text-ink opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                  className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/90 text-text-strong opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
                 >
                   <ExpandIcon className="size-4" />
                 </span>
@@ -131,18 +131,18 @@ function Lightbox({
         if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
         touchStartX.current = null;
       }}
-      className="on-ink m-0 h-dvh max-h-none w-full max-w-none bg-ink p-0 text-on-ink open:flex open:flex-col"
+      className="on-ink m-0 h-dvh max-h-none w-full max-w-none bg-surface-inverse p-0 text-text-inverse open:flex open:flex-col"
     >
       {item && (
         <>
           <div className="container-page flex h-16 shrink-0 items-center justify-between">
-            <p className="label text-on-ink-muted" aria-live="polite">
+            <p className="label text-text-inverse-muted" aria-live="polite">
               {String(index! + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
             </p>
             <button
               type="button"
               onClick={() => onChange(null)}
-              className="-mr-2 inline-flex size-11 items-center justify-center hover:text-gold"
+              className="-mr-2 inline-flex size-11 items-center justify-center hover:text-accent"
               aria-label="Close image viewer"
               autoFocus
             >
@@ -172,19 +172,19 @@ function Lightbox({
             <button
               type="button"
               onClick={() => step(-1)}
-              className="inline-flex size-12 items-center justify-center rounded-full border border-line-on-ink hover:border-gold hover:text-gold"
+              className="inline-flex size-12 items-center justify-center rounded-full border border-border-inverse hover:border-accent hover:text-accent"
               aria-label="Previous image"
             >
               <ChevronLeftIcon />
             </button>
             <div className="text-center">
               <p className="font-serif text-2xl">{item.category}</p>
-              {item.sample && <p className="text-sm text-on-ink-muted">Sample image</p>}
+              {item.sample && <p className="text-sm text-text-inverse-muted">Sample image</p>}
             </div>
             <button
               type="button"
               onClick={() => step(1)}
-              className="inline-flex size-12 items-center justify-center rounded-full border border-line-on-ink hover:border-gold hover:text-gold"
+              className="inline-flex size-12 items-center justify-center rounded-full border border-border-inverse hover:border-accent hover:text-accent"
               aria-label="Next image"
             >
               <ChevronRightIcon />

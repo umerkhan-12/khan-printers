@@ -93,13 +93,13 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
   if (status.state === "sent") {
     return (
       <div role="status" className="py-6 text-center sm:py-10">
-        <p className="label text-gold-deep">Request ready</p>
-        <h3 className="mt-4 font-serif text-h3 text-ink">Thank you, {fields.name.trim().split(" ")[0]}.</h3>
-        <p className="mx-auto mt-4 max-w-sm text-muted">
+        <p className="label text-accent-text">Request ready</p>
+        <h3 className="mt-4 font-serif text-h3 text-text-strong">Thank you, {fields.name.trim().split(" ")[0]}.</h3>
+        <p className="mx-auto mt-4 max-w-sm text-text-muted">
           WhatsApp should have opened with your details filled in — just press send. We’ll reply with your quote.
         </p>
         {emailEnabled && status.emailed === true && (
-          <p className="mx-auto mt-2 max-w-sm text-sm text-muted">We’ve also received your request by email.</p>
+          <p className="mx-auto mt-2 max-w-sm text-sm text-text-muted">We’ve also received your request by email.</p>
         )}
         {emailEnabled && status.emailed === false && status.hasFile && (
           <p className="mx-auto mt-2 max-w-sm text-sm text-error">
@@ -116,7 +116,7 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
             setFields(initialFields);
             setStatus({ state: "idle" });
           }}
-          className="mx-auto mt-4 block min-h-11 text-sm text-muted underline underline-offset-4 hover:text-ink"
+          className="mx-auto mt-4 block min-h-11 text-sm text-text-muted underline underline-offset-4 hover:text-text-strong"
         >
           Send another request
         </button>
@@ -164,13 +164,13 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
             name="service"
             value={fields.service}
             onChange={(e) => set("service")(e.target.value)}
-            className={`${inputClasses} appearance-none bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23111' stroke-width='1.5'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E")] bg-[position:right_1rem_center] bg-no-repeat pr-10 ${fields.service ? "" : "text-muted"}`}
+            className={`${fieldClasses} appearance-none bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23111' stroke-width='1.5'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E")] bg-[position:right_1rem_center] bg-no-repeat pr-10 ${fields.service ? "text-text-strong" : "text-text-muted"}`}
           >
             <option value="" disabled>
               Choose a service
             </option>
             {services.map((s) => (
-              <option key={s.slug} value={s.slug} className="text-ink">
+              <option key={s.slug} value={s.slug} className="text-text-strong">
                 {s.title}
               </option>
             ))}
@@ -217,7 +217,7 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
               type="file"
               accept={ACCEPTED_UPLOADS}
               onChange={() => errors.file && setErrors((e) => ({ ...e, file: undefined }))}
-              className="block w-full text-sm text-muted file:mr-4 file:h-11 file:cursor-pointer file:rounded-full file:border file:border-ink/25 file:bg-transparent file:px-5 file:text-sm file:font-medium file:text-ink hover:file:border-ink"
+              className="block w-full text-sm text-text-muted file:mr-4 file:h-11 file:cursor-pointer file:rounded-full file:border file:border-text-strong/25 file:bg-transparent file:px-5 file:text-sm file:font-medium file:text-text-strong hover:file:border-text-strong"
             />
           )}
         </Field>
@@ -236,17 +236,20 @@ export function QuoteForm({ emailEnabled, initialService = "" }: { emailEnabled:
           <WhatsAppIcon />
           Send on WhatsApp
         </button>
-        <p className="mt-3 text-center text-sm text-muted">Opens WhatsApp with your details filled in.</p>
+        <p className="mt-3 text-center text-sm text-text-muted">Opens WhatsApp with your details filled in.</p>
       </div>
     </form>
   );
 }
 
-const inputClasses =
-  "block h-12 w-full rounded-input border border-ink/20 bg-paper/60 px-4 text-base text-ink placeholder:text-muted/80 " +
-  "transition-[border-color,background-color] duration-200 hover:border-ink/40 focus:border-ink focus:bg-white focus:outline-none " +
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-deep " +
+// Field chrome without a text colour, so the select can switch placeholder/value colours.
+const fieldClasses =
+  "block h-12 w-full rounded-input border border-text-strong/20 bg-background/60 px-4 text-base placeholder:text-text-muted/80 " +
+  "transition-[border-color,background-color] duration-200 hover:border-text-strong/40 focus:border-text-strong focus:bg-surface focus:outline-none " +
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus " +
   "aria-invalid:border-error";
+
+const inputClasses = `${fieldClasses} text-text-strong`;
 
 type FieldProps = {
   label: string;
@@ -265,13 +268,13 @@ function Field({ label, optional, hint, error, className = "", children }: Field
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-2 flex items-baseline justify-between text-sm font-medium text-ink">
+      <label htmlFor={id} className="mb-2 flex items-baseline justify-between text-sm font-medium text-text-strong">
         {label}
-        {optional && <span className="text-xs font-normal text-muted">Optional</span>}
+        {optional && <span className="text-xs font-normal text-text-muted">Optional</span>}
       </label>
       {children({ id, "aria-invalid": !!error, "aria-describedby": describedBy, required: !optional })}
       {hint && (
-        <p id={hintId} className="mt-2 text-xs text-muted">
+        <p id={hintId} className="mt-2 text-xs text-text-muted">
           {hint}
         </p>
       )}

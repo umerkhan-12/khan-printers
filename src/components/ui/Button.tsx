@@ -10,11 +10,11 @@ const base =
   "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-ink text-on-ink hover:bg-ink-soft hover:text-gold",
-  secondary: "border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-on-ink",
-  whatsapp: "bg-whatsapp text-white hover:bg-whatsapp-dark",
-  gold: "bg-gold text-ink hover:bg-on-ink",
-  "ghost-on-ink": "border border-on-ink/30 text-on-ink hover:border-gold hover:text-gold",
+  primary: "bg-primary text-text-inverse hover:bg-primary-hover hover:text-accent",
+  secondary: "border border-primary/25 text-text-strong hover:border-primary hover:bg-primary hover:text-text-inverse",
+  whatsapp: "bg-success text-surface hover:bg-success-hover",
+  gold: "bg-accent text-text-strong hover:bg-accent-hover",
+  "ghost-on-ink": "border border-text-inverse/30 text-text-inverse hover:border-accent hover:text-accent",
 };
 
 const sizes: Record<Size, string> = {
